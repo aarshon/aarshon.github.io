@@ -13,8 +13,8 @@ permalink: /block-diagram/
 ## 📌 Overview  
 This page presents the block diagram for the HMI subsystem in our embedded system project.
 
-## 📁 Download the Block Diagram  
-[Download Block Diagram PDF](./314finalblockdiagram.drawio.pdf)
-
 ## 📷 Block Diagram Preview  
-![Block Diagram](./314finalblockdiagram.drawio.png)
+![Block Diagram](./assets/images/314blockdiagram.drawio.png)
+
+## 📁 Download the Block Diagram  
+[Download Block Diagram PDF](./assets/documents/314finalblockdiagram.drawio.pdf)
