@@ -59,7 +59,7 @@ extra_javascript:
 nav:
   - Home: index.md
   - Block Diagram: block-diagram.md
-  - 
+  - charts: charts.md
 
 not_in_nav: |
   static
