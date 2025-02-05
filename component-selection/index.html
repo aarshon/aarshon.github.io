@@ -437,40 +437,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#components" class="md-nav__link">
-    Components
-  </a>
-  
-    <nav class="md-nav" aria-label="Components">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#component-1" class="md-nav__link">
-    Component 1
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#component-2" class="md-nav__link">
-    Component 2
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#conclusion" class="md-nav__link">
-    Conclusion
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -519,40 +485,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#components" class="md-nav__link">
-    Components
-  </a>
-  
-    <nav class="md-nav" aria-label="Components">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#component-1" class="md-nav__link">
-    Component 1
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#component-2" class="md-nav__link">
-    Component 2
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#conclusion" class="md-nav__link">
-    Conclusion
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -578,14 +510,217 @@
 
 <h1 id="component-selection">Component Selection</h1>
 <h2 id="introduction">Introduction</h2>
-<p>Provide an introduction to the document here.</p>
+<p>For our embedded systems design project, we're developing an interactive weather station designed to engage K-12 students with real-time environmental data. Our goal is to create a learning experience where students can easily navigate through different weather modules- like temperature, humidity, solar power and battery status- using a simple keypad driven interface.</p>
 <h2 id="criteria">Criteria</h2>
-<p>List the criteria for selecting components.</p>
-<h2 id="components">Components</h2>
-<h3 id="component-1">Component 1</h3>
-<p>Details about the first component.</p>
-<h3 id="component-2">Component 2</h3>
-<p>Details about the second component.</p>
+<p>To ensure reliable operation, the HMI system requires a stable power supply, necessitating the integration of a voltage regulator. The PIC18F47Q10 microcontroller, selected for its low power consumption and direct compatibility with 5V peripherals, manages the user inputs and LCD output. The 16x2 I2C LCD is chosen for its low power usage and simple text display, while the 4x4 membrane keypad provides an efficient user interface for navigating through different data modules.  </p>
+<p>The power system is a critical aspect of this design, as the microcontroller and peripherals require a stable 5V power supply. A linear voltage regulator (AMS1117-5.0) is selected for its low noise and ease of integration, ensuring consistent voltage to the LCD and keypad without fluctuations. The power budget analysis confirms that the selected regulator meets the current demands of the system while maintaining efficiency​.  </p>
+<p>Additionally, the project incorporates a switching voltage regulator as part of a dedicated power supply lab requirement. This LM2575T-3.3G switching regulator is being developed to improve power efficiency, particularly for potential expansion into low-power wireless communication modules. The voltage regulator design process includes selecting appropriate inductors, capacitors, and diodes to ensure stable operation under varying load conditions​.</p>
+<p>This systematic component selection ensures the HMI module is power-efficient, durable, and user-friendly, meeting both educational and engineering design constraints.</p>
+<h1 id="components">Components</h1>
+<h2 id="microcontroller">Microcontroller</h2>
+<h3 id="option-1">Option 1</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Option</strong></th>
+<th><strong>Pros</strong></th>
+<th><strong>Cons</strong></th>
+<th><strong>Unit Cost &amp; Link</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PIC18F47Q10</strong> (Final Choice)</td>
+<td>Low power, optimized for standalone HMI</td>
+<td>No WiFi/Bluetooth</td>
+<td>$5.40 (DigiKey)(https://www.digikey.com/en/products/detail/microchip-technology/PIC18F47Q10-I-P/10187785)</td>
+</tr>
+<tr>
+<td></td>
+<td>Supports I2C for LCD and GPIO for Keypad</td>
+<td>Limited RAM compared to ESP32</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Reliable MPLAB XC8 &amp; MCC support</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>5V operation (compatible with LCD &amp; keypad)</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="option-2">Option 2</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Option</strong></th>
+<th><strong>Pros</strong></th>
+<th><strong>Cons</strong></th>
+<th><strong>Unit Cost &amp; Link</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PIC18F45K50</strong></td>
+<td>USB support</td>
+<td>Lacks built-in MCC Harmony compatibility</td>
+<td>$6.40 (DigiKey)(https://www.digikey.com/en/products/detail/microchip-technology/PIC18F45K50-I-PT/3671506)</td>
+</tr>
+<tr>
+<td></td>
+<td>More ADC channels</td>
+<td>May require more external circuitry</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Slightly cheaper than PIC18F47Q10</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="option-3">Option 3</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Option</strong></th>
+<th><strong>Pros</strong></th>
+<th><strong>Cons</strong></th>
+<th><strong>Unit Cost &amp; Link</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ESP32-S3-WROOM-1</strong></td>
+<td>Built-in WiFi/Bluetooth</td>
+<td>3.3V logic (incompatible with some peripherals)</td>
+<td>$3.40 (DigiKey)(https://www.digikey.com/en/products/detail/espressif-systems/ESP32-S3-WROOM-1-N8/15200089)</td>
+</tr>
+<tr>
+<td></td>
+<td>Faster CPU &amp; more RAM</td>
+<td>Higher power consumption</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Integrated hardware acceleration</td>
+<td>More complex firmware development</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="final-selection-pic18f47q10">Final Selection: PIC18F47Q10</h2>
+<h4 id="rationale">Rationale:</h4>
+<ul>
+<li>Low power operation suitable for an HMI system.</li>
+<li>5V compatibility ensures direct connection with LCD and keypad.</li>
+<li>Sufficient GPIO and I2C support for efficient module control.</li>
+<li>Microchip MCC integration simplifies firmware development.</li>
+</ul>
+<h2 id="keypad-selection">Keypad Selection:</h2>
+<p>The keypad serves as the primary navigation and input interface for the HMI.</p>
+<h3 id="option-1_1">Option 1</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Option</strong></th>
+<th><strong>Pros</strong></th>
+<th><strong>Cons</strong></th>
+<th><strong>Unit Cost &amp; Link</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Membrane 4x4 Keypad</strong> (Final Choice)</td>
+<td>Thin, lightweight, flexible</td>
+<td>Less tactile feedback</td>
+<td>$5.95 (DigiKey)(https://www.digikey.com/en/products/detail/adafruit-industries-llc/3844/9561536)</td>
+</tr>
+<tr>
+<td><strong>Part Number:</strong> 1528-2672-ND</td>
+<td>Easy to mount on an enclosure</td>
+<td>Can wear out over time</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Low power consumption</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="option-2_1">Option 2</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Option</strong></th>
+<th><strong>Pros</strong></th>
+<th><strong>Cons</strong></th>
+<th><strong>Unit Cost &amp; Link</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SWITCH JOYSTICK ANALOG 50V</strong></td>
+<td>Switch is small, making it ideal for compact PCB layouts and space-constrained applications.</td>
+<td>Typically rated for low current (e.g., 50mA–500mA), which may not be suitable for switching higher-power loads directly.</td>
+<td>$2.96 (DigiKey)(https://www.digikey.com/en/products/detail/c-k/THB001P/11687191)</td>
+</tr>
+<tr>
+<td><strong>Part Number:</strong> 108-THB001P-ND</td>
+<td>Provides a clear, tactile response for button presses.</td>
+<td>It will eventually degrade over time with heavy usage.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Suitable for frequent use in embedded systems.</td>
+<td>Requires external components (e.g., pull-down resistors or debouncing circuits)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="option-3_1">Option 3</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Option</strong></th>
+<th><strong>Pros</strong></th>
+<th><strong>Cons</strong></th>
+<th><strong>Unit Cost &amp; Link</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tactile Pushbutton Array (Custom)</strong></td>
+<td>Fully customizable button layout</td>
+<td>Requires additional wiring and PCB routing</td>
+<td>$5.95 (DigiKey)(https://www.digikey.com/en/products/detail/e-switch/TL3315NF160Q/1870395)</td>
+</tr>
+<tr>
+<td><strong>Part Number:</strong> TL3315NF160Q</td>
+<td>Strong feedback</td>
+<td>Can increase PCB complexity</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="final-selection-membrane-4x4-keypad">Final Selection: Membrane 4x4 Keypad</h2>
+<h3 id="rationale_1">Rationale:</h3>
+<ul>
+<li>Low power consumption is ideal for embedded applications.</li>
+<li>Compact &amp; lightweight for HMI panel mounting.</li>
+<li>Easier integration using GPIO-based matrix scanning.</li>
+</ul>
 <h2 id="conclusion">Conclusion</h2>
 <p>Summarize the document here.
 ```</p>
