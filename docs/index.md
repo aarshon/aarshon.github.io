@@ -10,6 +10,7 @@ Professor: Dr. Kevin Nichols
 
 [Block Diagram](./block-diagram.md)  
 [Appendix](./index.html)
+[Component Selection](./component-selection.md)
 
 ## About Me
 
