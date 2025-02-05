@@ -1,5 +1,4 @@
 
-```markdown
 # Component Selection
 
 ## Introduction

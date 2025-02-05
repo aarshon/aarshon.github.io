@@ -60,6 +60,7 @@ nav:
   - Home: index.md
   - Block Diagram: block-diagram.md
   - charts: charts.md
+  - Component Selection: component-selection.md
 
 not_in_nav: |
   static
