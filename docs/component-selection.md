@@ -1,6 +1,7 @@
 # Component Selection
 
 ## Introduction
+
 For our embedded systems design project, we're developing an interactive weather station designed to engage K-12 students with real-time environmental data. Our goal is to create a learning experience where students can easily navigate through different weather modules- like temperature, humidity, solar power and battery status- using a simple keypad driven interface.
 
 ## Criteria
@@ -12,9 +13,13 @@ The power system is a critical aspect of this design, as the microcontroller and
 Additionally, the project incorporates a switching voltage regulator as part of a dedicated power supply lab requirement. This LM2575T-3.3G switching regulator is being developed to improve power efficiency, particularly for potential expansion into low-power wireless communication modules. The voltage regulator design process includes selecting appropriate inductors, capacitors, and diodes to ensure stable operation under varying load conditions​.
 
 This systematic component selection ensures the HMI module is power-efficient, durable, and user-friendly, meeting both educational and engineering design constraints.
-# Components
+
+## Components
+
 ## Microcontroller
+
 ### Option 1
+
 | **Option** | **Pros** | **Cons** | **Unit Cost & Link** |
 | --- | --- | --- | --- |
 | **PIC18F47Q10** (Final Choice)  | Low power, optimized for standalone HMI  |No WiFi/Bluetooth | $5.40 (DigiKey)(https://www.digikey.com/en/products/detail/microchip-technology/PIC18F47Q10-I-P/10187785)
@@ -63,7 +68,7 @@ The keypad serves as the primary navigation and input interface for the HMI.
 ### Option 3
 | **Option** | **Pros** | **Cons** | **Unit Cost & Link** |
 | --- | --- | --- | --- |
-| **Tactile Pushbutton Array (Custom)**   | Fully customizable button layout  |Requires additional wiring and PCB routing | $5.95 (DigiKey)(https://www.digikey.com/en/products/detail/e-switch/TL3315NF160Q/1870395)
+| **Tactile Pushbutton Array (Custom)**   | Fully customizable button layout  |Requires additional wiring and PCB routing | [$5.95 (DigiKey)](https://www.digikey.com/en/products/detail/e-switch/TL3315NF160Q/1870395)
 |**Part Number:** TL3315NF160Q |  Strong feedback |Can increase PCB complexity
 
 ## Final Selection: Membrane 4x4 Keypad
