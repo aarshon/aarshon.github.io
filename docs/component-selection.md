@@ -22,7 +22,7 @@ This systematic component selection ensures the HMI module is power-efficient, d
 
 | **Option** | **Pros** | **Cons** | **Unit Cost & Link** |
 | --- | --- | --- | --- |
-| **PIC18F47Q10** (Final Choice)  | Low power, optimized for standalone HMI  |No WiFi/Bluetooth | $5.40 (DigiKey)(https://www.digikey.com/en/products/detail/microchip-technology/PIC18F47Q10-I-P/10187785)
+| **PIC18F47Q10** (Final Choice)  | Low power, optimized for standalone HMI  |No WiFi/Bluetooth | $5.40 [DigiKey](https://www.digikey.com/en/products/detail/microchip-technology/PIC18F47Q10-I-P/10187785)
 | |  Supports I2C for LCD and GPIO for Keypad |Limited RAM compared to ESP32
 | | Reliable MPLAB XC8 & MCC support  |
 | | 5V operation (compatible with LCD & keypad)|
@@ -30,14 +30,14 @@ This systematic component selection ensures the HMI module is power-efficient, d
 ### Option 2
 | **Option** | **Pros** | **Cons** | **Unit Cost & Link** |
 | --- | --- | --- | --- |
-| **PIC18F45K50**   | USB support  |Lacks built-in MCC Harmony compatibility | $6.40 (DigiKey)(https://www.digikey.com/en/products/detail/microchip-technology/PIC18F45K50-I-PT/3671506)
+| **PIC18F45K50**   | USB support  |Lacks built-in MCC Harmony compatibility | $6.40 [DigiKey](https://www.digikey.com/en/products/detail/microchip-technology/PIC18F45K50-I-PT/3671506)
 | |   More ADC channels   |May require more external circuitry
 | | Slightly cheaper than PIC18F47Q10  |
 
 ### Option 3
 | **Option** | **Pros** | **Cons** | **Unit Cost & Link** |
 | --- | --- | --- | --- |
-|    **ESP32-S3-WROOM-1**   | Built-in WiFi/Bluetooth  |3.3V logic (incompatible with some peripherals) | $3.40 (DigiKey)(https://www.digikey.com/en/products/detail/espressif-systems/ESP32-S3-WROOM-1-N8/15200089)
+|    **ESP32-S3-WROOM-1**   | Built-in WiFi/Bluetooth  |3.3V logic (incompatible with some peripherals) | $3.40 [DigiKey](https://www.digikey.com/en/products/detail/espressif-systems/ESP32-S3-WROOM-1-N8/15200089)
 | |   Faster CPU & more RAM   |Higher power consumption
 | | Integrated hardware acceleration  | More complex firmware development
 
