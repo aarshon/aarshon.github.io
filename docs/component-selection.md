@@ -37,7 +37,9 @@ This systematic component selection ensures the HMI module is power-efficient, d
 | **Option** | **Pros** | **Cons** | **Unit Cost & Link** |
 | --- | --- | --- | --- |
 | **PIC18F47Q10** (Final Choice)  | Low power, optimized for standalone HMI  |No WiFi/Bluetooth | $5.40 [DigiKey](https://www.digikey.com/en/products/detail/microchip-technology/PIC18F47Q10-I-P/10187785)
-| |  Supports I2C for LCD and GPIO for Keypad |Limited RAM compared to ESP32
+| |  Supports I2C for LCD and GPIO for Keypad |Limited RAM compared to ESP32 | ![Image:PIC18F47Q10](.\Users\aarsh\Documents\GitHub\aarshon.github.io\docs\assets\images\microcontroller.png)
+
+
 | | Reliable MPLAB XC8 & MCC support  |
 | | 5V operation (compatible with LCD & keypad)|
 
