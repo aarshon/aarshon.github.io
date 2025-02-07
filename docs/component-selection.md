@@ -1,5 +1,7 @@
 # Component Selection
 
+# Home
+
 ## Introduction
 
 For our embedded systems design project, we're developing an interactive weather station designed to engage K-12 students with real-time environmental data. Our goal is to create a learning experience where students can easily navigate through different weather modules- like temperature, humidity, solar power and battery status- using a simple keypad driven interface.
@@ -14,9 +16,21 @@ Additionally, the project incorporates a switching voltage regulator as part of 
 
 This systematic component selection ensures the HMI module is power-efficient, durable, and user-friendly, meeting both educational and engineering design constraints.
 
+------------------------------------------------
+
+## Responsibilities:
+
+- Sensing: Although my subsystem does not include direct environmental sensing, it will receive sensor data from the sensing module via UART communication and display relevant readings (e.g., temperature, humidity, solar power levels).
+- Actuation: The HMI itself does not control actuators, but it provides a user-friendly way to navigate sensor data, making it a crucial part of the interaction loop.
+- Display: I am implementing a 16x2 I2C LCD, which will show current sensor data and allow users to switch between different weather parameters.
+- Power: The HMI module operates at 5V, requiring a stable AMS1117-5.0 linear voltage regulator to ensure consistent power delivery.  
+  
+- Communication: The PIC18F47Q10 microcontroller in my HMI module communicates with other subsystems via I2C (for the LCD) and UART (for receiving sensor data).
+  
+---------------------------
 ## Components
 
-## Microcontroller
+## Microcontroller Selection
 
 ### Option 1
 
@@ -41,14 +55,14 @@ This systematic component selection ensures the HMI module is power-efficient, d
 | |   Faster CPU & more RAM   |Higher power consumption
 | | Integrated hardware acceleration  | More complex firmware development
 
-## Final Selection: PIC18F47Q10
+## Final Selection: PIC18F47Q10 (Option 1)
 #### Rationale:
 
 - Low power operation suitable for an HMI system.
 - 5V compatibility ensures direct connection with LCD and keypad.
 - Sufficient GPIO and I2C support for efficient module control.
 - Microchip MCC integration simplifies firmware development.
-
+---------------------------
 ## Keypad Selection:
 The keypad serves as the primary navigation and input interface for the HMI.
 ### Option 1
@@ -71,12 +85,76 @@ The keypad serves as the primary navigation and input interface for the HMI.
 | **Tactile Pushbutton Array (Custom)**   | Fully customizable button layout  |Requires additional wiring and PCB routing | [$5.95 (DigiKey)](https://www.digikey.com/en/products/detail/e-switch/TL3315NF160Q/1870395)
 |**Part Number:** TL3315NF160Q |  Strong feedback |Can increase PCB complexity
 
-## Final Selection: Membrane 4x4 Keypad
+## Final Selection: Membrane 4x4 Keypad (Option 1)
 ### Rationale:
 
 - Low power consumption is ideal for embedded applications.
 - Compact & lightweight for HMI panel mounting.
 - Easier integration using GPIO-based matrix scanning.
+
+-------------------------
+
+## LCD Display Selection
+The LCD display provides real-time feedback to the user, showing the selected module.
+
+### Option 1
+| **Option** | **Pros** | **Cons** | **Unit Cost & Link** |
+| --- | --- | --- | --- |
+| **16x2 I2C LCD** (Final Choice)  | Easy I2C communication  |No graphical output | $13.95 [DigiKey](https://www.digikey.com/en/products/detail/newhaven-display-intl/NHD-C0216CIZ-FSW-FBW-3V3/2165872)
+|**Part Number:** NHD-C0216CIZ-FSW-FBW-3V3 |   Low power, simple to use |Limited characters
+| | Readable in sunlight  |
+
+### Option 2
+| **Option** | **Pros** | **Cons** | **Unit Cost & Link** |
+| --- | --- | --- | --- |
+| **20x4 I2C LCD**   | Larger display area  |Larger size may not fit in HMI panel | $14.00 [DigiKey](https://www.digikey.com/en/products/detail/newhaven-display-intl/NHD-C0216CIZ-FSW-FBW-3V3/2165872)
+|  | Same I2C interface as 16x2 | Slightly higher power consumption
+| | More readable text|
+
+### Option 3
+| **Option** | **Pros** | **Cons** | **Unit Cost & Link** |
+| --- | --- | --- | --- |
+| **128x64 Graphical LCD**  |  Can display graphs/icons  |More complex software control | $17.45 [DigiKey](https://www.digikey.com/en/products/detail/newhaven-display-intl/NHD-C0216CIZ-FSW-FBW-3V3/2165872)
+|  | High contrast output |Requires SPI instead of I2C|
+
+## Final Selection: 16x2 I2C LCD (Option 1)
+### Rationale:
+
+- Supports text-based menu navigation.
+- I2C interface reduces GPIO usage.
+- Low power consumption suits embedded applications.
+
+---------------------------------
+## Voltage Regulator Selection:
+
+### Option 1
+| **Option** | **Pros** | **Cons** | **Unit Cost & Link** |
+| --- | --- | --- | --- |
+| **AMS1117-5V** (Final Choice)  | Low-cost, widely used |Low efficiency (linear regulator) | $0.35 [DigiKey](https://www.digikey.com/en/products/detail/evvo/AMS1117-5-0/24370130)
+|**Part Number:** AMS1117-5.0 |  Simple circuit design |Produces heat at high loads
+
+
+### Option 2
+| **Option** | **Pros** | **Cons** | **Unit Cost & Link** |
+| --- | --- | --- | --- |
+| **LM7805 Linear Regulator**   | Simple drop-in solution |Higher power loss than AMS1117 | $1.07 [DigiKey](https://www.digikey.com/en/products/detail/onsemi/MC7805CTG/919333)
+|**Part Number:** MC7805CTG |  Stable 5V output | Requires heatsink at higher currents
+
+
+### Option 3
+| **Option** | **Pros** | **Cons** | **Unit Cost & Link** |
+| --- | --- | --- | --- |
+| **LM2575 Switching Regulator**  |  Higher efficiency  |More complex circuit (requires inductor) | $2.84 [DigiKey](https://www.digikey.com/en/products/detail/texas-instruments/LM9071SX-NOPB/12319485?gQT=2&gRefinements=MERCHANT:DigiKey)
+|**Part Number:** LM9071SX/NOPB  | Less heat dissipation |Higher cost|
+
+## Final Selection: AMS1117-5V
+### Rationale:
+- Simple and cost-effective for a low-power HMI system.
+- No external inductors needed.
+- Sufficient for LCD, PIC, and keypad power requirements.
+
+-----------------------------
+
 
 ## Conclusion
 Summarize the document here.
