@@ -37,7 +37,7 @@ This systematic component selection ensures the HMI module is power-efficient, d
 | **Option** | **Pros** | **Cons** | **Unit Cost & Link** |
 | --- | --- | --- | --- |
 | **PIC18F47Q10** (Final Choice)  | Low power, optimized for standalone HMI  |No WiFi/Bluetooth | $5.40 [DigiKey](https://www.digikey.com/en/products/detail/microchip-technology/PIC18F47Q10-I-P/10187785)
-| |  Supports I2C for LCD and GPIO for Keypad |Limited RAM compared to ESP32 | ![Image:PIC18F47Q10](.\Users\aarsh\Documents\GitHub\aarshon.github.io\docs\assets\images\microcontroller.png)
+| |  Supports I2C for LCD and GPIO for Keypad |Limited RAM compared to ESP32 | ![Image:PIC18F47Q10](./assets/images/microcontroller.png.png)
 
 
 | | Reliable MPLAB XC8 & MCC support  |
@@ -70,21 +70,21 @@ The keypad serves as the primary navigation and input interface for the HMI.
 ### Option 1
 | **Option** | **Pros** | **Cons** | **Unit Cost & Link** |
 | --- | --- | --- | --- |
-| **Membrane 4x4 Keypad** (Final Choice)  | Thin, lightweight, flexible  |Less tactile feedback | $5.95 (DigiKey)(https://www.digikey.com/en/products/detail/adafruit-industries-llc/3844/9561536)
+| **Membrane 4x4 Keypad** (Final Choice)  | Thin, lightweight, flexible  |Less tactile feedback | $5.95 [DigiKey](https://www.digikey.com/en/products/detail/adafruit-industries-llc/3844/9561536)
 |**Part Number:** 1528-2672-ND |  Easy to mount on an enclosure |Can wear out over time
 | | Low power consumption  |
 
 ### Option 2
 | **Option** | **Pros** | **Cons** | **Unit Cost & Link** |
 | --- | --- | --- | --- |
-| **SWITCH JOYSTICK ANALOG 50V**   | Switch is small, making it ideal for compact PCB layouts and space-constrained applications.  |Typically rated for low current (e.g., 50mA–500mA), which may not be suitable for switching higher-power loads directly.  | $2.96 (DigiKey)(https://www.digikey.com/en/products/detail/c-k/THB001P/11687191)
+| **SWITCH JOYSTICK ANALOG 50V**   | Switch is small, making it ideal for compact PCB layouts and space-constrained applications.  |Typically rated for low current (e.g., 50mA–500mA), which may not be suitable for switching higher-power loads directly.  | $2.96 [DigiKey](https://www.digikey.com/en/products/detail/c-k/THB001P/11687191)
 |**Part Number:** 108-THB001P-ND |  Provides a clear, tactile response for button presses. |It will eventually degrade over time with heavy usage.
 | | Suitable for frequent use in embedded systems.  | Requires external components (e.g., pull-down resistors or debouncing circuits) 
 
 ### Option 3
 | **Option** | **Pros** | **Cons** | **Unit Cost & Link** |
 | --- | --- | --- | --- |
-| **Tactile Pushbutton Array (Custom)**   | Fully customizable button layout  |Requires additional wiring and PCB routing | [$5.95 (DigiKey)](https://www.digikey.com/en/products/detail/e-switch/TL3315NF160Q/1870395)
+| **Tactile Pushbutton Array (Custom)**   | Fully customizable button layout  |Requires additional wiring and PCB routing | $5.95 [DigiKey](https://www.digikey.com/en/products/detail/e-switch/TL3315NF160Q/1870395)
 |**Part Number:** TL3315NF160Q |  Strong feedback |Can increase PCB complexity
 
 ## Final Selection: Membrane 4x4 Keypad (Option 1)
