@@ -155,9 +155,32 @@ The LCD display provides real-time feedback to the user, showing the selected mo
 
 -----------------------------
 
+## Library and Compatibility Research for PIC18F47Q10
 
+- To ensure seamless integration of peripherals, I conducted research on library support, potential compatibility issues, and existing code examples for the PIC18F47Q10. The focus was on the 4x4 matrix keypad, the 16x2 I2C LCD, and voltage regulation to verify that all components could be efficiently interfaced with the microcontroller.
+
+### Keypad (4x4 Matrix) Compatibility Check
+
+The 4x4 matrix keypad is interfaced using GPIO row-column scanning, where each key press is detected by determining which row and column are connected when a button is pressed. MPLAB XC8 does not include a built-in library for keypad scanning, so a custom row-column scanning function will be implemented. One known issue with matrix keypads is button debounce, which must be handled in firmware to avoid unintended multiple key detections when a button is pressed.
+
+To address this, a state-based debounce algorithm will be implemented, and the rows and columns will be scanned using direct GPIO manipulation in MPLAB XC8. This ensures accurate key detection and reliable input processing.
+
+### 16x2 LCD (I2C) Compatibility Check
+
+- The selected LCD module communicates using the I2C protocol, which reduces the number of GPIO pins required compared to a parallel-interface LCD. The MPLAB XC8 environment includes support for I2C communication, and the LiquidCrystal_I2C.h library is compatible with PIC18F microcontrollers, simplifying integration. However, some LCD controllers, such as the Hitachi HD44780 and its variants, require specific initialization sequences that may differ between models.
+
+- To ensure compatibility, the initialization sequence will be tested, and any necessary adjustments will be made within the LiquidCrystal_I2C.h library. This will ensure that the LCD correctly displays menu options and sensor data as intended.
+
+### Voltage Regulator (AMS1117-5.0)
+
+- The HMI system requires a stable 5V power supply to ensure proper operation of the PIC microcontroller, keypad, and LCD. The AMS1117-5.0 was selected as the voltage regulator due to its simplicity and ease of integration. As a linear regulator, it has some heat dissipation, but this is not expected to be a concern given the low power requirements of the system.
+
+- Since the AMS1117-5.0 requires minimal external components and has no software dependencies, it is a suitable choice for providing a stable 5V output to all necessary peripherals. Proper heat management will be ensured in the PCB layout, and voltage stability will be verified during testing.
+  
 ## Conclusion
+
 Summarize the document here.
+
 ```
 
 
