@@ -38,23 +38,22 @@ This systematic component selection ensures the HMI module is power-efficient, d
 | --- | --- | --- | --- |
 | **PIC18F47Q10** (Final Choice)  | Low power, optimized for standalone HMI  |No WiFi/Bluetooth | $5.40 [DigiKey](https://www.digikey.com/en/products/detail/microchip-technology/PIC18F47Q10-I-P/10187785)
 | |  Supports I2C for LCD and GPIO for Keypad |Limited RAM compared to ESP32 | ![Image:PIC18F47Q10](./assets/images/microcontroller.png.png)
-
-
-| | Reliable MPLAB XC8 & MCC support  |
+|| Reliable MPLAB XC8 & MCC support  |
 | | 5V operation (compatible with LCD & keypad)|
+
 
 ### Option 2
 | **Option** | **Pros** | **Cons** | **Unit Cost & Link** |
 | --- | --- | --- | --- |
 | **PIC18F45K50**   | USB support  |Lacks built-in MCC Harmony compatibility | $6.40 [DigiKey](https://www.digikey.com/en/products/detail/microchip-technology/PIC18F45K50-I-PT/3671506)
-| |   More ADC channels   |May require more external circuitry
+| |   More ADC channels   |May require more external circuitry| ![Image:PIC18F45K50](./assets/images/MCoption2.png)
 | | Slightly cheaper than PIC18F47Q10  |
 
 ### Option 3
 | **Option** | **Pros** | **Cons** | **Unit Cost & Link** |
 | --- | --- | --- | --- |
 |    **ESP32-S3-WROOM-1**   | Built-in WiFi/Bluetooth  |3.3V logic (incompatible with some peripherals) | $3.40 [DigiKey](https://www.digikey.com/en/products/detail/espressif-systems/ESP32-S3-WROOM-1-N8/15200089)
-| |   Faster CPU & more RAM   |Higher power consumption
+| |   Faster CPU & more RAM   |Higher power consumption| ![Image:](./assets/images/MCoption3.png)
 | | Integrated hardware acceleration  | More complex firmware development
 
 ## Final Selection: PIC18F47Q10 (Option 1)
@@ -71,21 +70,21 @@ The keypad serves as the primary navigation and input interface for the HMI.
 | **Option** | **Pros** | **Cons** | **Unit Cost & Link** |
 | --- | --- | --- | --- |
 | **Membrane 4x4 Keypad** (Final Choice)  | Thin, lightweight, flexible  |Less tactile feedback | $5.95 [DigiKey](https://www.digikey.com/en/products/detail/adafruit-industries-llc/3844/9561536)
-|**Part Number:** 1528-2672-ND |  Easy to mount on an enclosure |Can wear out over time
+|**Part Number:** 1528-2672-ND |  Easy to mount on an enclosure |Can wear out over time | ![Image:1528-2672-ND](./assets/images/kpad1.png)
 | | Low power consumption  |
 
 ### Option 2
 | **Option** | **Pros** | **Cons** | **Unit Cost & Link** |
 | --- | --- | --- | --- |
 | **SWITCH JOYSTICK ANALOG 50V**   | Switch is small, making it ideal for compact PCB layouts and space-constrained applications.  |Typically rated for low current (e.g., 50mA–500mA), which may not be suitable for switching higher-power loads directly.  | $2.96 [DigiKey](https://www.digikey.com/en/products/detail/c-k/THB001P/11687191)
-|**Part Number:** 108-THB001P-ND |  Provides a clear, tactile response for button presses. |It will eventually degrade over time with heavy usage.
+|**Part Number:** 108-THB001P-ND |  Provides a clear, tactile response for button presses. |It will eventually degrade over time with heavy usage.| ![Image:108-THB001P-ND](./assets/images/kpad2.png)
 | | Suitable for frequent use in embedded systems.  | Requires external components (e.g., pull-down resistors or debouncing circuits) 
 
 ### Option 3
 | **Option** | **Pros** | **Cons** | **Unit Cost & Link** |
 | --- | --- | --- | --- |
 | **Tactile Pushbutton Array (Custom)**   | Fully customizable button layout  |Requires additional wiring and PCB routing | $5.95 [DigiKey](https://www.digikey.com/en/products/detail/e-switch/TL3315NF160Q/1870395)
-|**Part Number:** TL3315NF160Q |  Strong feedback |Can increase PCB complexity
+|**Part Number:** TL3315NF160Q |  Strong feedback |Can increase PCB complexity | ![Image:TL3315NF160Q](./assets/images/kpad3.png)
 
 ## Final Selection: Membrane 4x4 Keypad (Option 1)
 ### Rationale:
@@ -103,21 +102,21 @@ The LCD display provides real-time feedback to the user, showing the selected mo
 | **Option** | **Pros** | **Cons** | **Unit Cost & Link** |
 | --- | --- | --- | --- |
 | **16x2 I2C LCD** (Final Choice)  | Easy I2C communication  |No graphical output | $13.95 [DigiKey](https://www.digikey.com/en/products/detail/newhaven-display-intl/NHD-C0216CIZ-FSW-FBW-3V3/2165872)
-|**Part Number:** NHD-C0216CIZ-FSW-FBW-3V3 |   Low power, simple to use |Limited characters
+|**Part Number:** NHD-C0216CIZ-FSW-FBW-3V3 |   Low power, simple to use |Limited characters | ![Image:](./assets/images/lcd1.png)
 | | Readable in sunlight  |
 
 ### Option 2
 | **Option** | **Pros** | **Cons** | **Unit Cost & Link** |
 | --- | --- | --- | --- |
-| **20x4 I2C LCD**   | Larger display area  |Larger size may not fit in HMI panel | $14.00 [DigiKey](https://www.digikey.com/en/products/detail/newhaven-display-intl/NHD-C0216CIZ-FSW-FBW-3V3/2165872)
-|  | Same I2C interface as 16x2 | Slightly higher power consumption
+| **20x4 I2C LCD**   | Larger display area  |Larger size may not fit in HMI panel | $14.00 [DigiKey](https://www.digikey.com/en/products/detail/orient-display/AMC2004AR-B-Y6WFDY-I2C/22531846?gQT=2)
+|  | Same I2C interface as 16x2 | Slightly higher power consumption | ![Image:](./assets/images/lcd2.png)
 | | More readable text|
 
 ### Option 3
 | **Option** | **Pros** | **Cons** | **Unit Cost & Link** |
 | --- | --- | --- | --- |
-| **128x64 Graphical LCD**  |  Can display graphs/icons  |More complex software control | $17.45 [DigiKey](https://www.digikey.com/en/products/detail/newhaven-display-intl/NHD-C0216CIZ-FSW-FBW-3V3/2165872)
-|  | High contrast output |Requires SPI instead of I2C|
+| **128x64 Graphical LCD**  |  Can display graphs/icons  |More complex software control | $17.45 [DigiKey](https://www.digikey.com/en/products/detail/newhaven-display-intl/NHD-C12864B2Z-RN-FBW/1885690?gQT=1)
+|  | High contrast output |Requires SPI instead of I2C| ![Image:](./assets/images/lcd3.png)
 
 ## Final Selection: 16x2 I2C LCD (Option 1)
 ### Rationale:
@@ -133,21 +132,21 @@ The LCD display provides real-time feedback to the user, showing the selected mo
 | **Option** | **Pros** | **Cons** | **Unit Cost & Link** |
 | --- | --- | --- | --- |
 | **AMS1117-5V** (Final Choice)  | Low-cost, widely used |Low efficiency (linear regulator) | $0.35 [DigiKey](https://www.digikey.com/en/products/detail/evvo/AMS1117-5-0/24370130)
-|**Part Number:** AMS1117-5.0 |  Simple circuit design |Produces heat at high loads
+|**Part Number:** AMS1117-5.0 |  Simple circuit design |Produces heat at high loads | ![Image:](./assets/images/volr1.png)
 
 
 ### Option 2
 | **Option** | **Pros** | **Cons** | **Unit Cost & Link** |
 | --- | --- | --- | --- |
 | **LM7805 Linear Regulator**   | Simple drop-in solution |Higher power loss than AMS1117 | $1.07 [DigiKey](https://www.digikey.com/en/products/detail/onsemi/MC7805CTG/919333)
-|**Part Number:** MC7805CTG |  Stable 5V output | Requires heatsink at higher currents
+|**Part Number:** MC7805CTG |  Stable 5V output | Requires heatsink at higher currents| ![Image:](./assets/images/volr2.png)
 
 
 ### Option 3
 | **Option** | **Pros** | **Cons** | **Unit Cost & Link** |
 | --- | --- | --- | --- |
 | **LM2575 Switching Regulator**  |  Higher efficiency  |More complex circuit (requires inductor) | $2.84 [DigiKey](https://www.digikey.com/en/products/detail/texas-instruments/LM9071SX-NOPB/12319485?gQT=2&gRefinements=MERCHANT:DigiKey)
-|**Part Number:** LM9071SX/NOPB  | Less heat dissipation |Higher cost|
+|**Part Number:** LM9071SX/NOPB  | Less heat dissipation |Higher cost| ![Image:](./assets/images/volr3.png) |
 
 ## Final Selection: AMS1117-5V
 ### Rationale:
@@ -178,10 +177,14 @@ To address this, a state-based debounce algorithm will be implemented, and the r
 - The HMI system requires a stable 5V power supply to ensure proper operation of the PIC microcontroller, keypad, and LCD. The AMS1117-5.0 was selected as the voltage regulator due to its simplicity and ease of integration. As a linear regulator, it has some heat dissipation, but this is not expected to be a concern given the low power requirements of the system.
 
 - Since the AMS1117-5.0 requires minimal external components and has no software dependencies, it is a suitable choice for providing a stable 5V output to all necessary peripherals. Proper heat management will be ensured in the PCB layout, and voltage stability will be verified during testing.
-  
+
+
+## MCC Pin Configuration
+
+
 ## Conclusion
 
-Summarize the document here.
+
 
 ```
 
