@@ -149,7 +149,9 @@ The LCD display provides real-time feedback to the user, showing the selected mo
 |**Part Number:** LM9071SX/NOPB  | Less heat dissipation |Higher cost| ![Image:](./assets/images/volr3.png) |
 
 ## Final Selection: AMS1117-5V
+
 ### Rationale:
+
 - Simple and cost-effective for a low-power HMI system.
 - No external inductors needed.
 - Sufficient for LCD, PIC, and keypad power requirements.
@@ -187,6 +189,13 @@ To address this, a state-based debounce algorithm will be implemented, and the r
 | **I2C (MSSP1)**|  LCD Communication |SDA: RC4, SCL: RC3 | 
 |**UART (EUSART1)**| Data exchange with other modules  |TX: RB7, RX: RB6|
 |**5V Power** | Voltage Regulation|AMS1117-5.0
+
+![Image Microcontroller 1](./assets/images/mcpin.png){ style="border: 2px solid;" }
+
+![Image Microcontroller 2](./assets/images/mcpin2.png){ style="border: 2px solid;" }
+
+![Image Microcontroller 3](./assets/images/mcpin3.png){ style="border: 2px solid;" }
+
 
 ## Pin Allocation Analysis
 
