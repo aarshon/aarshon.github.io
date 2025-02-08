@@ -181,9 +181,26 @@ To address this, a state-based debounce algorithm will be implemented, and the r
 
 ## MCC Pin Configuration
 
+| **Peripheral** | **Purpose** | **Assigned Pins** | 
+| --- | --- | --- | 
+| **GPIO**   | 4x4 Keypad (Row-Column Scanning)  |RB0 - RB7 |
+| **I2C (MSSP1)**|  LCD Communication |SDA: RC4, SCL: RC3 | 
+|**UART (EUSART1)**| Data exchange with other modules  |TX: RB7, RX: RB6|
+|**5V Power** | Voltage Regulation|AMS1117-5.0
+
+## Pin Allocation Analysis
+
+While setting up the MCC configuration, I made sure that all the peripherals were assigned to available pins without any conflicts. Since UART communication is critical for the HMI to send and receive data, I moved the TX (transmit) to RB7 and RX (receive) to RB6 instead of using the default UART pins. This setup still works perfectly with the PIC18F47Q10 and ensures reliable communication with the other subsystems.
+
+For the keypad input, I mapped the GPIOs to RB0-RB7 so the microcontroller can efficiently scan which button is pressed using row-column multiplexing. The I2C interface for the LCD display is set to RC4 (SDA) and RC3 (SCL), which are dedicated I2C pins on the PIC, making communication with the LCD simple and reliable.
+
+After setting everything up in MCC, I checked the generated initialization code, and everything looked good—no errors, no conflicts. The microcontroller has enough available pins for all required functions, and I also accounted for power management to ensure a stable 5V supply to the PIC, LCD, and keypad.
 
 ## Conclusion
 
+The component selection process for the HMI subsystem was guided by several key factors, including compatibility, power efficiency, ease of integration, and reliability. The PIC18F47Q10 microcontroller was chosen due to its low power consumption, built-in I2C support for the LCD, and GPIO capabilities for keypad scanning, making it the most suitable option for this project. The 16x2 I2C LCD was selected for its simple interface, low power requirements, and clear text display, ensuring that users can easily navigate and view real-time weather data.
+
+For user input, the 4x4 membrane keypad was chosen due to its compact design, durability, and ease of integration using direct GPIO scanning. To maintain a stable power supply, the AMS1117-5.0 linear voltage regulator was selected to provide a consistent 5V output to the microcontroller, LCD, and keypad, ensuring that all components operate without voltage fluctuations.
 
 
 ```
