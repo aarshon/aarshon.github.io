@@ -910,6 +910,9 @@
 </tr>
 </tbody>
 </table>
+<p><a class="glightbox" href="../assets/images/mcpin.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image Microcontroller 1" src="../assets/images/mcpin.png" style="border: 2px solid;" /></a></p>
+<p><a class="glightbox" href="../assets/images/mcpin2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image Microcontroller 2" src="../assets/images/mcpin2.png" style="border: 2px solid;" /></a></p>
+<p><a class="glightbox" href="../assets/images/mcpin3.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Image Microcontroller 3" src="../assets/images/mcpin3.png" style="border: 2px solid;" /></a></p>
 <h2 id="pin-allocation-analysis">Pin Allocation Analysis</h2>
 <p>While setting up the MCC configuration, I made sure that all the peripherals were assigned to available pins without any conflicts. Since UART communication is critical for the HMI to send and receive data, I moved the TX (transmit) to RB7 and RX (receive) to RB6 instead of using the default UART pins. This setup still works perfectly with the PIC18F47Q10 and ensures reliable communication with the other subsystems.</p>
 <p>For the keypad input, I mapped the GPIOs to RB0-RB7 so the microcontroller can efficiently scan which button is pressed using row-column multiplexing. The I2C interface for the LCD display is set to RC4 (SDA) and RC3 (SCL), which are dedicated I2C pins on the PIC, making communication with the LCD simple and reliable.</p>
