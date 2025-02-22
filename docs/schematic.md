@@ -1,3 +1,10 @@
 # Schematic
- ![Image:TL3315NF160Q](./assets/images/screenshot2025-02-21123231.png)
- 
+
+## Schematic Image
+ ![Image:Schematic](./assets/images/schematicpic.png)
+
+## 📁 Download the Schematic Diagram  
+[Download Schematic Diagram PDF](./assets/documents/Schematicpdf.pdf)
+
+## 📁 Download the Schematic Zip File  
+[Download Schematic Zip File](./assets/zip-files/EGR314_Aarshon_IndividualSub.zip)
