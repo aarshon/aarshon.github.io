@@ -10,9 +10,8 @@ For our embedded systems design project, we're developing an interactive weather
 
 To ensure reliable operation, the HMI system requires a stable power supply, necessitating the integration of a voltage regulator. The PIC18F47Q10 microcontroller, selected for its low power consumption and direct compatibility with 5V peripherals, manages the user inputs and LCD output. The 16x2 I2C LCD is chosen for its low power usage and simple text display, while the 4x4 membrane keypad provides an efficient user interface for navigating through different data modules.  
 
-The power system is a critical aspect of this design, as the microcontroller and peripherals require a stable 5V power supply. A linear voltage regulator (AMS1117-5.0) is selected for its low noise and ease of integration, ensuring consistent voltage to the LCD and keypad without fluctuations. The power budget analysis confirms that the selected regulator meets the current demands of the system while maintaining efficiency​.  
 
-Additionally, the project incorporates a switching voltage regulator as part of a dedicated power supply lab requirement. This LM2575T-3.3G switching regulator is being developed to improve power efficiency, particularly for potential expansion into low-power wireless communication modules. The voltage regulator design process includes selecting appropriate inductors, capacitors, and diodes to ensure stable operation under varying load conditions​.
+Additionally, the project incorporates a switching voltage regulator as part of a dedicated power supply lab requirement. This AP63203WU-7 switching regulator is being developed to improve power efficiency, particularly for potential expansion into low-power wireless communication modules. The voltage regulator design process includes selecting appropriate inductors, capacitors, and diodes to ensure stable operation under varying load conditions​.
 
 This systematic component selection ensures the HMI module is power-efficient, durable, and user-friendly, meeting both educational and engineering design constraints.
 
@@ -36,8 +35,8 @@ This systematic component selection ensures the HMI module is power-efficient, d
 
 | **Option** | **Pros** | **Cons** | **Unit Cost & Link** |
 | --- | --- | --- | --- |
-| **PIC18F47Q10** (Final Choice)  | Low power, optimized for standalone HMI  |No WiFi/Bluetooth | $5.40 [DigiKey](https://www.digikey.com/en/products/detail/microchip-technology/PIC18F47Q10-I-P/10187785)
-| |  Supports I2C for LCD and GPIO for Keypad |Limited RAM compared to ESP32 | ![Image:PIC18F47Q10](./assets/images/microcontroller.png.png)
+| **PIC18F47Q10** (Final Choice)  | Low power, optimized for standalone HMI  |No WiFi/Bluetooth | $5.40 [DigiKey](https://www.digikey.com/en/products/detail/microchip-technology/PIC18F47Q10-I-PT/10187786)
+| |  Supports I2C for LCD and GPIO for Keypad |Limited RAM compared to ESP32 | ![Image:PIC18F47Q10](./assets/images/microcontroller2.png)
 || Reliable MPLAB XC8 & MCC support  |
 | | 5V operation (compatible with LCD & keypad)|
 
@@ -131,8 +130,8 @@ The LCD display provides real-time feedback to the user, showing the selected mo
 ### Option 1
 | **Option** | **Pros** | **Cons** | **Unit Cost & Link** |
 | --- | --- | --- | --- |
-| **AMS1117-5V** (Final Choice)  | Low-cost, widely used |Low efficiency (linear regulator) | $0.35 [DigiKey](https://www.digikey.com/en/products/detail/evvo/AMS1117-5-0/24370130)
-|**Part Number:** AMS1117-5.0 |  Simple circuit design |Produces heat at high loads | ![Image:](./assets/images/volr1.png)
+| **AP63203WU-7** (Final Choice)  | Low-cost, widely used |Adjustable Output Voltage | $1.38 [DigiKey](https://www.digikey.com/en/products/detail/diodes-incorporated/AP63203WU-7/9858426)
+|**Part Number:** AP63203WU-7 |  High Efficiency |Produces heat at high loads | ![Image:](./assets/images/volr4.png)
 
 
 ### Option 2
@@ -148,13 +147,14 @@ The LCD display provides real-time feedback to the user, showing the selected mo
 | **LM2575 Switching Regulator**  |  Higher efficiency  |More complex circuit (requires inductor) | $2.84 [DigiKey](https://www.digikey.com/en/products/detail/texas-instruments/LM9071SX-NOPB/12319485?gQT=2&gRefinements=MERCHANT:DigiKey)
 |**Part Number:** LM9071SX/NOPB  | Less heat dissipation |Higher cost| ![Image:](./assets/images/volr3.png) |
 
-## Final Selection: AMS1117-5V
+## Final Selection: AP63203WU-7
 
 ### Rationale:
 
-- Simple and cost-effective for a low-power HMI system.
-- No external inductors needed.
-- Sufficient for LCD, PIC, and keypad power requirements.
+- High Efficiency and Low Power Dissipation
+- Wide Input Voltage Range
+- Adjustable Output Voltage
+-  Fewer external components, simplifying PCB layout and reducing cost.
 
 -----------------------------
 
@@ -174,11 +174,11 @@ To address this, a state-based debounce algorithm will be implemented, and the r
 
 - To ensure compatibility, the initialization sequence will be tested, and any necessary adjustments will be made within the LiquidCrystal_I2C.h library. This will ensure that the LCD correctly displays menu options and sensor data as intended.
 
-### Voltage Regulator (AMS1117-5.0)
+### Voltage Regulator (AP63203WU)
 
-- The HMI system requires a stable 5V power supply to ensure proper operation of the PIC microcontroller, keypad, and LCD. The AMS1117-5.0 was selected as the voltage regulator due to its simplicity and ease of integration. As a linear regulator, it has some heat dissipation, but this is not expected to be a concern given the low power requirements of the system.
+- The HMI system requires a stable 5V power supply to ensure proper operation of the PIC microcontroller, keypad, and LCD. The AP63203WU was selected as the voltage regulator due to its high efficiency and reduced heat dissipation compared to traditional linear regulators like the AMS1117-5.0. As a synchronous buck converter, it provides up to 95% efficiency, minimizing power loss and heat generation.
 
-- Since the AMS1117-5.0 requires minimal external components and has no software dependencies, it is a suitable choice for providing a stable 5V output to all necessary peripherals. Proper heat management will be ensured in the PCB layout, and voltage stability will be verified during testing.
+- Unlike the AMS1117-5.0, which wastes energy as heat, the AP63203WU efficiently steps down higher input voltages (3.8V to 32V) to a stable 5V output, making it suitable for battery-powered and energy-sensitive applications.
 
 
 ## MCC Pin Configuration
