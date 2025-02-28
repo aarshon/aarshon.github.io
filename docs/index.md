@@ -14,14 +14,26 @@ Team Website: [Click Here!](https://egr314-2025-s-306.github.io/EGR314-Team306/)
 [Component Selection](./component-selection.md)  
 [Schematic & Bill of Materials](./schematic.md)
 
-## About Me
-
-Aarshon's EGR 314 Project  
-Junior Year Engineering Showcase  
-
-About the Project
+## Introduction
+Introduction
 Welcome! My name is Aarshon, and this project is part of my junior year Engineering showcase. Our mission is to design and deliver a STEM-themed, interactive, web-enabled device that inspires K-12 students to explore science, technology, engineering, and math (STEM).  
-Team Goals
+
+Welcome to my Embedded Systems HMI Subsystem project for EGR314. I am developing an interactive Human-Machine Interface (HMI) as part of a larger weather station system. This HMI will provide real-time data display and user input functionality, ensuring seamless interaction with the system’s environmental sensors and power management units.
+My design leverages a PIC18F47Q10 microcontroller, a membrane keypad for user input, and an OLED display for data visualization. The system is engineered with a focus on energy efficiency, modularity, and intuitive usability, making it suitable for STEM education applications.
+
+## Mission Statement
+
+> Our team aims to develop an interactive, STEM-themed educational display that engages K-12 students by showcasing real-time weather data through an intuitive HMI. The project emphasizes energy efficiency, modularity, and ease of use, ensuring both technical excellence and alignment with educational standards.
+
+## Team Charter:
+
+Collaboration: Each member is accountable for their subsystem while supporting team-wide integration.
+Innovation: We prioritize creative problem-solving and efficiency improvements in both hardware and software.
+Professionalism: We adhere to engineering best practices, ensuring a structured and well-documented design process.
+Education & Outreach: Our system is designed to inspire curiosity in STEM fields by making engineering principles accessible to young learners.  
+
+
+### Team Goals
 
 Build a high-quality, market-ready product.  
 Collaborate effectively as a team to deliver results.  

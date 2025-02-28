@@ -100,8 +100,9 @@ The LCD display provides real-time feedback to the user, showing the selected mo
 ### Option 1
 | **Option** | **Pros** | **Cons** | **Unit Cost & Link** |
 | --- | --- | --- | --- |
-| **16x2 I2C LCD** (Final Choice)  | Easy I2C communication  |No graphical output | $13.95 [DigiKey](https://www.digikey.com/en/products/detail/newhaven-display-intl/NHD-C0216CIZ-FSW-FBW-3V3/2165872)
-|**Part Number:** NHD-C0216CIZ-FSW-FBW-3V3 |   Low power, simple to use |Limited characters | ![Image:](./assets/images/lcd1.png)
+| **20x4 I2C LCD** (Final Choice)  | Easy I2C communication  |No graphical output | $26.20 [DigiKey](https://www.digikey.com/en/products/detail/display-visions/EA-DOGM204W-A/4896726)
+
+|**Part Number:** 1481-1087-ND |   Low power, simple to use |Slow refresh rate | ![Image:](./assets/images/lcd4.png)
 | | Readable in sunlight  |
 
 ### Option 2
