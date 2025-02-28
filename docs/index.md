@@ -5,7 +5,7 @@ title: Welcome
 Name: Aarshon George Roggy  
 Class: EGR314 - 12:00PM Monday/Wednesday  
 Professor: Dr. Kevin Nichols
-Team Website: [Click Here!](https://aarshon.github.io)
+Team Website: [Click Here!](https://egr314-2025-s-306.github.io/EGR314-Team306/)
 
 ## Home
 
@@ -31,9 +31,11 @@ Create a user-friendly experience for K-12 students.
 Focus on sustainability and innovation.  
 Meet project deadlines and stay on budget.  
 Team Coordination & Accountability
+
 Our team consists of:  
 
 - Aarshon: Team lead and systems integrator.
 - Alex: Hardware specialist.
 - Ian: Software developer.
 - Kushagra: User experience designer and tester.
+

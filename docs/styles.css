@@ -1,0 +1,16 @@
+body {
+    background-color: black;
+    color: white;
+}
+a {
+    color: cyan;
+}
+
+h1 {
+    font-size: 2.5em;
+    text-align: center;
+}
+
+p {
+    line-height: 1.6;
+}
