@@ -61,6 +61,8 @@ nav:
   - Block Diagram: block-diagram.md
   - Component Selection: component-selection.md
   - Schematics: schematic.md
+  - Bill of Materials: bill-of-materials.md
+  
 
 not_in_nav: |
   static
