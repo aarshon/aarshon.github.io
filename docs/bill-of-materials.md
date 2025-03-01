@@ -5,7 +5,7 @@ This HMI subsystem is designed to provide a robust, low-power, and user-friendly
 
 #### Excel File for Download
 An Excel file containing the full Bill of Materials (BOM) for this HMI subsystem is available for direct download. It details component part numbers, quantities, and brief descriptions to assist in procurement and assembly. The excel file is also converted into a csv file and embedded below: 
->[Download Here](docs/assets/documents/EGR314_BOM_Aarshon_IndividualSub.xlsx) 
+>[Download Here](./assets/documents/EGR314_BOM_Aarshon_IndividualSub.xlsx)
 
 ## Bill of Materials:
 

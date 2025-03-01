@@ -4,15 +4,16 @@ title: Welcome
 
 Name: Aarshon George Roggy  
 Class: EGR314 - 12:00PM Monday/Wednesday  
-Professor: Dr. Kevin Nichols
-Team Website: [Click Here!](https://egr314-2025-s-306.github.io/EGR314-Team306/)
+Professor: Dr. Kevin Nichols  
+Team Website: [**Click Here!**](https://egr314-2025-s-306.github.io/EGR314-Team306/)
 
 ## Home
  
 [Block Diagram](./block-diagram.md)  
 [Appendix](./index.html)  
 [Component Selection](./component-selection.md)  
-[Schematic & Bill of Materials](./schematic.md)
+[Schematic](./schematic.md)  
+[Bill of Materials](./bill-of-materials.md)
 
 ## Introduction
 Introduction
