@@ -62,7 +62,9 @@ nav:
   - Component Selection: component-selection.md
   - Schematics: schematic.md
   - Bill of Materials: bill-of-materials.md
+  - Power, I2C: power-distribution.md
   
+
 
 not_in_nav: |
   static
