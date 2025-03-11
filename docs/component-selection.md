@@ -219,5 +219,3 @@ For user input, the 4x4 membrane keypad was chosen due to its compact design, du
 
 
 ```
-
-
