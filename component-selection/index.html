@@ -301,6 +301,23 @@
   
 
       
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../pcb-design/" class="md-tabs__link">
+        
+  
+    
+  
+  PCB Design & Manufacturing
+
+      </a>
+    </li>
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -475,6 +492,25 @@
   
 
     
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pcb-design/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PCB Design & Manufacturing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -552,7 +588,7 @@
 </thead>
 <tbody>
 <tr>
-<td><strong>PIC18F47Q10</strong> (Final Choice)</td>
+<td><strong>PIC18F47Q10</strong></td>
 <td>Low power, optimized for standalone HMI</td>
 <td>No WiFi/Bluetooth</td>
 <td>$5.40 <a href="https://www.digikey.com/en/products/detail/microchip-technology/PIC18F47Q10-I-PT/10187786">DigiKey</a></td>
@@ -620,7 +656,7 @@
 </thead>
 <tbody>
 <tr>
-<td><strong>ESP32-S3-WROOM-1</strong></td>
+<td><strong>ESP32-S3-WROOM-1</strong>  (Final Choice)</td>
 <td>Built-in WiFi/Bluetooth</td>
 <td>3.3V logic (incompatible with some peripherals)</td>
 <td>$3.40 <a href="https://www.digikey.com/en/products/detail/espressif-systems/ESP32-S3-WROOM-1-N8/15200089">DigiKey</a></td>
@@ -639,13 +675,19 @@
 </tr>
 </tbody>
 </table>
-<h2 id="final-selection-pic18f47q10-option-1">Final Selection: PIC18F47Q10 (Option 1)</h2>
+<h2 id="final-selection-esp32-s3-wroom-1-option-3">Final Selection: ESP32-S3-WROOM-1 (Option 3)</h2>
 <h4 id="rationale">Rationale:</h4>
 <ul>
-<li>Low power operation suitable for an HMI system.</li>
-<li>5V compatibility ensures direct connection with LCD and keypad.</li>
-<li>Sufficient GPIO and I2C support for efficient module control.</li>
-<li>Microchip MCC integration simplifies firmware development.</li>
+<li>Built-in Wi-Fi and Bluetooth</li>
+<li>Multiple Communication Interfaces<ul>
+<li>I2C Support → Needed for interfacing with the DOGM204-A LCD display.</li>
+<li>UART Support → Required for receiving messages from the daisy chain network.</li>
+<li>GPIO Support → Handles 4x4 Keypad scanning for user input.</li>
+</ul>
+</li>
+<li>Ample Flash &amp; RAM for UI Development</li>
+<li>Strong Open-Source Community &amp; Library Support</li>
+<li>Low Power Consumption with Switching Regulator</li>
 </ul>
 <hr />
 <h2 id="keypad-selection">Keypad Selection:</h2>
@@ -1052,7 +1094,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright &copy; 2024 team-name-here
+      Copyright &copy; 2025 MacroChip
     </div>
   
   
