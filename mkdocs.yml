@@ -63,13 +63,14 @@ nav:
   - Schematics: schematic.md
   - Bill of Materials: bill-of-materials.md
   - Power, I2C: power-distribution.md
+  - PCB Design & Manufacturing: pcb-design.md
   
 
 
 not_in_nav: |
   static
   
-copyright: "Copyright &copy; 2024 team-name-here"
+copyright: "Copyright &copy; 2025 MacroChip"
 
 extra:
   generator: false
