@@ -35,7 +35,7 @@ This systematic component selection ensures the HMI module is power-efficient, d
 
 | **Option** | **Pros** | **Cons** | **Unit Cost & Link** |
 | --- | --- | --- | --- |
-| **PIC18F47Q10** (Final Choice)  | Low power, optimized for standalone HMI  |No WiFi/Bluetooth | $5.40 [DigiKey](https://www.digikey.com/en/products/detail/microchip-technology/PIC18F47Q10-I-PT/10187786)
+| **PIC18F47Q10**  | Low power, optimized for standalone HMI  |No WiFi/Bluetooth | $5.40 [DigiKey](https://www.digikey.com/en/products/detail/microchip-technology/PIC18F47Q10-I-PT/10187786)
 | |  Supports I2C for LCD and GPIO for Keypad |Limited RAM compared to ESP32 | ![Image:PIC18F47Q10](./assets/images/microcontroller2.png)
 || Reliable MPLAB XC8 & MCC support  |
 | | 5V operation (compatible with LCD & keypad)|
@@ -51,17 +51,22 @@ This systematic component selection ensures the HMI module is power-efficient, d
 ### Option 3
 | **Option** | **Pros** | **Cons** | **Unit Cost & Link** |
 | --- | --- | --- | --- |
-|    **ESP32-S3-WROOM-1**   | Built-in WiFi/Bluetooth  |3.3V logic (incompatible with some peripherals) | $3.40 [DigiKey](https://www.digikey.com/en/products/detail/espressif-systems/ESP32-S3-WROOM-1-N8/15200089)
+|    **ESP32-S3-WROOM-1**  (Final Choice)  | Built-in WiFi/Bluetooth  |3.3V logic (incompatible with some peripherals) | $3.40 [DigiKey](https://www.digikey.com/en/products/detail/espressif-systems/ESP32-S3-WROOM-1-N8/15200089)
 | |   Faster CPU & more RAM   |Higher power consumption| ![Image:](./assets/images/MCoption3.png)
 | | Integrated hardware acceleration  | More complex firmware development
 
-## Final Selection: PIC18F47Q10 (Option 1)
+## Final Selection: ESP32-S3-WROOM-1 (Option 3)
 #### Rationale:
 
-- Low power operation suitable for an HMI system.
-- 5V compatibility ensures direct connection with LCD and keypad.
-- Sufficient GPIO and I2C support for efficient module control.
-- Microchip MCC integration simplifies firmware development.
+- Built-in Wi-Fi and Bluetooth
+- Multiple Communication Interfaces
+    - I2C Support → Needed for interfacing with the DOGM204-A LCD display.
+    - UART Support → Required for receiving messages from the daisy chain network.
+    - GPIO Support → Handles 4x4 Keypad scanning for user input.
+- Ample Flash & RAM for UI Development
+- Strong Open-Source Community & Library Support
+- Low Power Consumption with Switching Regulator
+
 ---------------------------
 ## Keypad Selection:
 The keypad serves as the primary navigation and input interface for the HMI.
