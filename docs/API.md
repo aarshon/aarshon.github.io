@@ -43,7 +43,23 @@ If stop bytes are missing, a timeout triggers data recovery.
 4. **0x99** - Unknown message type (Invalid Command)
 5. **AA BB CC DD EE** - Random unknown data
 6. **0x59 | 0x42** - Stop bytes
-7. 
 
 
+### Invalid Character Received & Error Handling
+
+---
+1.   **0x41 0x5A** → Start Byte  
+2. **0x02** → ESP32
+3. **0x03** → Weather Sensor
+4. **0x05** → "CORRUPTED MESSAGE: RESEND"
+5. **0x59 0x42** → End Byte
+---
+
+1. 0x41 0x3F → First start byte is correct (0x41), but second start byte is incorrect (0x3F instead of 0x5A)
+2. The ESP32 detects corruption and ignores the message.
+
+#### What happens?
+
+1. The ESP32 sets CTS (Clear-To-Send) HIGH to request retransmission from the sender.
+2. It does not process or display the corrupted data.
 
