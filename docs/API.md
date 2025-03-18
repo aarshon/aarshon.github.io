@@ -30,8 +30,20 @@ If stop bytes are missing, a timeout triggers data recovery.
 
 ### Example Message (Sensor Data)
 
-0x41 0x5A | 0x02 (Sender) | 0xFF (Broadcast) | 0x01 | 30 00 | 25 00 | 60 00 | 1013 00 | 0x59 0x42  
-(Sensor Data: Wind = 30 km/h, Temp = 25°C, Humidity = 60%, Pressure = 1013 hPa)
+| Start Bytes | Sender | Broadcast | Message type | Wind speed | Temperature | Humidity | Pressure | Stop Bytes |
+|---|---|---|---|---|---|---|---|---|
+0x41 0x5A | 0x02 (Sender) | 0xFF (Broadcast) | 0x01 | 30 00 | 25 00 | 60 00 | 1013 00 | 0x59 0x42
+
+
+### Handling a Message Sent to the Wrong System or Unrecognized Data
+
+1. **0x41 0x5A** - Start bytes
+2. ***0x04** - Motor Controller is the sender
+3. **0x02** - ESP32 (HMI) is the recipient
+4. **0x99** - Unknown message type (Invalid Command)
+5. **AA BB CC DD EE** - Random unknown data
+6. **0x59 | 0x42** - Stop bytes
+7. 
 
 
 
