@@ -64,6 +64,8 @@ nav:
   - Bill of Materials: bill-of-materials.md
   - Power, I2C: power-distribution.md
   - PCB Design & Manufacturing: pcb-design.md
+  - API: API.md
+  
   
 
 
