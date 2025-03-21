@@ -48,7 +48,7 @@ If stop bytes are missing, a timeout triggers data recovery.
 ### Invalid Character Received & Error Handling
 
 ---
-1.   **0x41 0x5A** → Start Byte  
+1. **0x41 0x5A** → Start Byte
 2. **0x02** → ESP32
 3. **0x03** → Weather Sensor
 4. **0x05** → "CORRUPTED MESSAGE: RESEND"
@@ -62,4 +62,8 @@ If stop bytes are missing, a timeout triggers data recovery.
 
 1. The ESP32 sets CTS (Clear-To-Send) HIGH to request retransmission from the sender.
 2. It does not process or display the corrupted data.
+
+
+
+
 
