@@ -13,9 +13,9 @@ Team Website: [**Click Here!**](https://egr314-2025-s-306.github.io/EGR314-Team3
 [Appendix](./index.html)  
 [Component Selection](./component-selection.md)  
 [Schematic](./schematic.md)  
-[Bill of Materials](./bill-of-materials.md)
-[Power Allocation](./power-distribution.md)
-[API](./API.md)
+[Bill of Materials](./bill-of-materials.md)  
+[Power Allocation](./power-distribution.md)  
+[API](./API.md)  
 
 
 ## Introduction
