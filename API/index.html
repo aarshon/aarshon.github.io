@@ -572,71 +572,25 @@
     UART Message Structure
   </a>
   
-    <nav class="md-nav" aria-label="UART Message Structure">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#error-handling" class="md-nav__link">
-    Error Handling
-  </a>
-  
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#sensor-broadcast-data" class="md-nav__link">
+    Sensor Broadcast Data
+  </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#uart-message-types-table" class="md-nav__link">
-    UART Message Types Table
+  <a href="#subsystem-error-code" class="md-nav__link">
+    Subsystem error code
   </a>
-  
-    <nav class="md-nav" aria-label="UART Message Types Table">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#example-message-sensor-data" class="md-nav__link">
-    Example Message (Sensor Data)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#handling-a-message-sent-to-the-wrong-system-or-unrecognized-data" class="md-nav__link">
-    Handling a Message Sent to the Wrong System or Unrecognized Data
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#invalid-character-received-error-handling" class="md-nav__link">
-    Invalid Character Received &amp; Error Handling
-  </a>
-  
-    <nav class="md-nav" aria-label="Invalid Character Received & Error Handling">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#what-happens" class="md-nav__link">
-    What happens?
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#revamped-message-types" class="md-nav__link">
-    Revamped Message Types
+  <a href="#subsystem-error-message" class="md-nav__link">
+    Subsystem error message
   </a>
   
 </li>
@@ -680,71 +634,25 @@
     UART Message Structure
   </a>
   
-    <nav class="md-nav" aria-label="UART Message Structure">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#error-handling" class="md-nav__link">
-    Error Handling
-  </a>
-  
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#sensor-broadcast-data" class="md-nav__link">
+    Sensor Broadcast Data
+  </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#uart-message-types-table" class="md-nav__link">
-    UART Message Types Table
+  <a href="#subsystem-error-code" class="md-nav__link">
+    Subsystem error code
   </a>
-  
-    <nav class="md-nav" aria-label="UART Message Types Table">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#example-message-sensor-data" class="md-nav__link">
-    Example Message (Sensor Data)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#handling-a-message-sent-to-the-wrong-system-or-unrecognized-data" class="md-nav__link">
-    Handling a Message Sent to the Wrong System or Unrecognized Data
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#invalid-character-received-error-handling" class="md-nav__link">
-    Invalid Character Received &amp; Error Handling
-  </a>
-  
-    <nav class="md-nav" aria-label="Invalid Character Received & Error Handling">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#what-happens" class="md-nav__link">
-    What happens?
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#revamped-message-types" class="md-nav__link">
-    Revamped Message Types
+  <a href="#subsystem-error-message" class="md-nav__link">
+    Subsystem error message
   </a>
   
 </li>
@@ -775,193 +683,200 @@
 <h1 id="api-application-programming-interface">API Application Programming Interface</h1>
 <p>The HMI Subsystem API enables seamless UART-based communication with other subsystems using a structured daisy-chain protocol. This ensures reliable data transmission between the ESP32-WROOM and other modules while preventing conflicts or message loss. The message structure follows a 64-byte format with defined prefixes, suffixes, sender/receiver IDs, and data payloads.</p>
 <h2 id="uart-message-structure">UART Message Structure</h2>
+<hr />
 <table>
 <thead>
 <tr>
-<th>Byte #</th>
-<th>Field</th>
-<th>Description</th>
+<th></th>
+<th>Byte 1</th>
+<th>Byte 2</th>
+<th>Byte 3–4</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>0-1</td>
-<td><strong>0x41 0x5A</strong></td>
-<td><strong>Start Bytes (Message Prefix)</strong></td>
+<td><strong>Variable</strong></td>
+<td>msg_type</td>
+<td>command_code</td>
+<td>command_value</td>
 </tr>
 <tr>
+<td><strong>Type</strong></td>
+<td>uint8_t</td>
+<td>uint8_t</td>
+<td>uint16_t</td>
+</tr>
+<tr>
+<td><strong>Min Value</strong></td>
 <td>2</td>
-<td><strong>Send ID</strong></td>
-<td>Sender’s unique subsystem ID</td>
+<td>0</td>
+<td>0</td>
 </tr>
 <tr>
-<td>3</td>
-<td><strong>Receive ID</strong></td>
-<td>Target recipient’s subsystem ID</td>
+<td><strong>Max Value</strong></td>
+<td>2</td>
+<td>255</td>
+<td>65535</td>
 </tr>
 <tr>
-<td>4-61</td>
-<td><strong>Message Data</strong></td>
-<td>Up to <strong>58 bytes</strong> of payload</td>
-</tr>
-<tr>
-<td>62-63</td>
-<td><strong>0x59 0x42</strong></td>
-<td><strong>Stop Bytes (Message Suffix)</strong></td>
-</tr>
-</tbody>
-</table>
-<h3 id="error-handling">Error Handling</h3>
-<p>If prefix bytes are corrupted, the system rejects the message and requests retransmission.
-If stop bytes are missing, a timeout triggers data recovery.</p>
-<h2 id="uart-message-types-table">UART Message Types Table</h2>
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-<th>Data Format</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0x01</td>
-<td>Sensor Data (wind, temp, humidity, pressure)</td>
-<td>4x <code>uint16_t</code></td>
-</tr>
-<tr>
-<td>0x02</td>
-<td>Move Motor (motor ID, angle)</td>
-<td><code>uint8_t, uint8_t</code></td>
-</tr>
-<tr>
-<td>0x03</td>
-<td>Set Alignment Frequency (sec)</td>
-<td><code>uint16_t</code></td>
-</tr>
-<tr>
-<td>0x04</td>
-<td>Subsystem Status (ID, code)</td>
-<td><code>uint8_t, uint8_t</code></td>
-</tr>
-<tr>
-<td>0x05</td>
-<td>Error Message (string)</td>
-<td><code>char[57]</code></td>
-</tr>
-<tr>
-<td>0x06</td>
-<td>Local Weather Data (type, value)</td>
-<td><code>uint8_t, uint16_t</code></td>
-</tr>
-</tbody>
-</table>
-<h3 id="example-message-sensor-data">Example Message (Sensor Data)</h3>
-<table>
-<thead>
-<tr>
-<th>Start Bytes</th>
-<th>Sender</th>
-<th>Broadcast</th>
-<th>Message type</th>
-<th>Wind speed</th>
-<th>Temperature</th>
-<th>Humidity</th>
-<th>Pressure</th>
-<th>Stop Bytes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0x41 0x5A</td>
-<td>0x02 (Sender)</td>
-<td>0xFF (Broadcast)</td>
-<td>0x01</td>
-<td>30 00</td>
-<td>25 00</td>
-<td>60 00</td>
-<td>1013 00</td>
-<td>0x59 0x42</td>
-</tr>
-</tbody>
-</table>
-<h3 id="handling-a-message-sent-to-the-wrong-system-or-unrecognized-data">Handling a Message Sent to the Wrong System or Unrecognized Data</h3>
-<ol>
-<li><strong>0x41 0x5A</strong> - Start bytes</li>
-<li><strong>*0x04</strong> - Motor Controller is the sender</li>
-<li><strong>0x02</strong> - ESP32 (HMI) is the recipient</li>
-<li><strong>0x99</strong> - Unknown message type (Invalid Command)</li>
-<li><strong>AA BB CC DD EE</strong> - Random unknown data</li>
-<li><strong>0x59 | 0x42</strong> - Stop bytes</li>
-</ol>
-<h3 id="invalid-character-received-error-handling">Invalid Character Received &amp; Error Handling</h3>
-<hr />
-<ol>
-<li><strong>0x41 0x5A</strong> → Start Byte</li>
-<li><strong>0x02</strong> → ESP32</li>
-<li><strong>0x03</strong> → Weather Sensor</li>
-<li><strong>0x05</strong> → "CORRUPTED MESSAGE: RESEND"</li>
-<li><strong>0x59 0x42</strong> → End Byte</li>
-</ol>
-<hr />
-<ol>
-<li>0x41 0x3F → First start byte is correct (0x41), but second start byte is incorrect (0x3F instead of 0x5A)</li>
-<li>The ESP32 detects corruption and ignores the message.</li>
-</ol>
-<h4 id="what-happens">What happens?</h4>
-<ol>
-<li>The ESP32 sets CTS (Clear-To-Send) HIGH to request retransmission from the sender.</li>
-<li>It does not process or display the corrupted data.</li>
-</ol>
-<h2 id="revamped-message-types">Revamped Message Types</h2>
-<table>
-<thead>
-<tr>
-<th>Byte(s)</th>
-<th>Name / Field</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
+<td><strong>Example</strong></td>
+<td>2</td>
 <td>1</td>
-<td>Message Type</td>
-<td><code>uint8</code></td>
-<td>Identifies the kind of message being sent (e.g., 0x01 = sensor data).</td>
-</tr>
-<tr>
-<td>2–3</td>
-<td>Prefix</td>
-<td>2 × <code>uint8</code></td>
-<td>Constant start-of-frame bytes (e.g., 0x41, 0x5A).</td>
-</tr>
-<tr>
-<td>4</td>
-<td>SenderID</td>
-<td><code>uint8</code></td>
-<td>ID of the node transmitting this message (e.g., 0x02 = HMI, 0x04 = Motor).</td>
-</tr>
-<tr>
-<td>5</td>
-<td>DestID</td>
-<td><code>uint8</code></td>
-<td>ID of the intended recipient (0xFF could represent broadcast).</td>
-</tr>
-<tr>
-<td>6–63</td>
-<td>Data / Payload</td>
-<td>up to 58 bytes</td>
-<td>Content depends on Message Type. Could store sensor readings, commands, etc.</td>
-</tr>
-<tr>
-<td>64</td>
-<td>Suffix</td>
-<td><code>uint8</code></td>
-<td>End-of-frame marker (e.g., 0x42), or extended to 2 bytes if desired (0x59, 0x42).</td>
+<td>100</td>
 </tr>
 </tbody>
 </table>
+<ul>
+<li><strong>msg_type = 2</strong> (example) means "User Command" from the HMI.</li>
+<li><strong>command_code</strong> could represent which user action was triggered (e.g., 1 = up button, 2 = down button, 10 = new setpoint, etc.).</li>
+<li><strong>command_value</strong> is the numeric parameter (e.g., 100 = setpoint = 100, or 45 = brightness, etc.).</li>
+</ul>
+<hr />
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Byte 1</th>
+<th>Bytes 2–58</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Variable</strong></td>
+<td>msg_type</td>
+<td>display_msg</td>
+</tr>
+<tr>
+<td><strong>Type</strong></td>
+<td>uint8_t</td>
+<td>char array (uint8_t)</td>
+</tr>
+<tr>
+<td><strong>Min Value</strong></td>
+<td>3</td>
+<td>char[1]</td>
+</tr>
+<tr>
+<td><strong>Max Value</strong></td>
+<td>3</td>
+<td>char[57] (null-terminated)</td>
+</tr>
+<tr>
+<td><strong>Example</strong></td>
+<td>3</td>
+<td>"HELLO USER"</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>msg_type = 3</strong> means a "Display Update Request."</li>
+<li><strong>display_msg</strong> is a character array (up to 57 bytes). Could be zero-terminated if needed.</li>
+</ul>
+<hr />
+<h2 id="sensor-broadcast-data">Sensor Broadcast Data</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Byte 1</th>
+<th>Byte 2</th>
+<th>Bytes 3–4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Variable</strong></td>
+<td>msg_type</td>
+<td>sensor_num</td>
+<td>sensor_val</td>
+</tr>
+<tr>
+<td><strong>Type</strong></td>
+<td>uint8_t</td>
+<td>uint8_t</td>
+<td>uint16_t</td>
+</tr>
+<tr>
+<td><strong>Example</strong></td>
+<td>1</td>
+<td>3 (humidity)</td>
+<td>45</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>The HMI reads <strong>sensor_num</strong> and <strong>sensor_val</strong> from the incoming packet, then updates the local display or logs the data.</li>
+</ul>
+<h2 id="subsystem-error-code">Subsystem error code</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Byte 1</th>
+<th>Byte 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Variable</strong></td>
+<td>msg_type</td>
+<td>err_code</td>
+</tr>
+<tr>
+<td><strong>Type</strong></td>
+<td>uint8_t</td>
+<td>uint8_t</td>
+</tr>
+<tr>
+<td><strong>Example</strong></td>
+<td>4</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>The HMI displays or records an appropriate message (e.g., "Error Code 1: Overload").</li>
+</ul>
+<h2 id="subsystem-error-message">Subsystem error message</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Byte 1</th>
+<th>Bytes 2–58</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Variable</strong></td>
+<td>msg_type</td>
+<td>err_msg</td>
+</tr>
+<tr>
+<td><strong>Type</strong></td>
+<td>uint8_t</td>
+<td>char array (uint8_t)</td>
+</tr>
+<tr>
+<td><strong>Min Value</strong></td>
+<td>5</td>
+<td>char[1]</td>
+</tr>
+<tr>
+<td><strong>Max Value</strong></td>
+<td>5</td>
+<td>char[57] (null-terminated)</td>
+</tr>
+<tr>
+<td><strong>Example</strong></td>
+<td>5</td>
+<td>"sensor 1 read error"</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>The HMI might display <strong>"sensor 1 read error"</strong> on a local screen or beep to alert the user.</li>
+</ul>
 
 
 
