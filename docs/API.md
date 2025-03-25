@@ -4,72 +4,66 @@ The HMI Subsystem API enables seamless UART-based communication with other subsy
 
 ## UART Message Structure
 
-| Byte #  | Field          | Description |
-|---------|--------------|-------------|
-| 0-1     | **0x41 0x5A** | **Start Bytes (Message Prefix)** |
-| 2       | **Send ID**   | Sender’s unique subsystem ID |
-| 3       | **Receive ID** | Target recipient’s subsystem ID |
-| 4-61    | **Message Data** | Up to **58 bytes** of payload |
-| 62-63   | **0x59 0x42** | **Stop Bytes (Message Suffix)** |
+-----
+
+|              | Byte 1      | Byte 2         | Byte 3–4        |
+|--------------|-------------|----------------|-----------------|
+| **Variable** | msg_type    | command_code   | command_value   |
+| **Type**     | uint8_t     | uint8_t        | uint16_t        |
+| **Min Value**| 2           | 0              | 0               |
+| **Max Value**| 2           | 255            | 65535           |
+| **Example**  | 2           | 1              | 100             |
+
+- **msg_type = 2** (example) means "User Command" from the HMI.
+- **command_code** could represent which user action was triggered (e.g., 1 = up button, 2 = down button, 10 = new setpoint, etc.).
+- **command_value** is the numeric parameter (e.g., 100 = setpoint = 100, or 45 = brightness, etc.).
+
+----
+
+|              | Byte 1      | Bytes 2–58         |
+|--------------|-------------|--------------------|
+| **Variable** | msg_type    | display_msg        |
+| **Type**     | uint8_t     | char array (uint8_t) |
+| **Min Value**| 3           | char[1]            |
+| **Max Value**| 3           | char[57] (null-terminated) |
+| **Example**  | 3           | "HELLO USER"       |
+
+- **msg_type = 3** means a "Display Update Request."
+- **display_msg** is a character array (up to 57 bytes). Could be zero-terminated if needed.
+
+----
+## Sensor Broadcast Data
+
+|              | Byte 1      | Byte 2        | Bytes 3–4      |
+|--------------|-------------|---------------|----------------|
+| **Variable** | msg_type    | sensor_num    | sensor_val     |
+| **Type**     | uint8_t     | uint8_t       | uint16_t       |
+| **Example**  | 1           | 3 (humidity)  | 45             |
+
+- The HMI reads **sensor_num** and **sensor_val** from the incoming packet, then updates the local display or logs the data.
 
 
-### Error Handling
-If prefix bytes are corrupted, the system rejects the message and requests retransmission.
-If stop bytes are missing, a timeout triggers data recovery.
+## Subsystem error code
 
-## UART Message Types Table
+|              | Byte 1      | Byte 2     |
+|--------------|-------------|------------|
+| **Variable** | msg_type    | err_code   |
+| **Type**     | uint8_t     | uint8_t    |
+| **Example**  | 4           | 1          |
 
-| Type  | Description | Data Format |
-|-------|----------------------------------------------|----------------|
-| 0x01  | Sensor Data (wind, temp, humidity, pressure) | 4x `uint16_t` |
-| 0x02  | Move Motor (motor ID, angle) | `uint8_t, uint8_t` |
-| 0x03  | Set Alignment Frequency (sec) | `uint16_t` |
-| 0x04  | Subsystem Status (ID, code) | `uint8_t, uint8_t` |
-| 0x05  | Error Message (string) | `char[57]` |
-| 0x06  | Local Weather Data (type, value) | `uint8_t, uint16_t` |
+- The HMI displays or records an appropriate message (e.g., "Error Code 1: Overload").
 
-### Example Message (Sensor Data)
+## Subsystem error message
 
-| Start Bytes | Sender | Broadcast | Message type | Wind speed | Temperature | Humidity | Pressure | Stop Bytes |
-|---|---|---|---|---|---|---|---|---|
-0x41 0x5A | 0x02 (Sender) | 0xFF (Broadcast) | 0x01 | 30 00 | 25 00 | 60 00 | 1013 00 | 0x59 0x42
+|              | Byte 1      | Bytes 2–58         |
+|--------------|-------------|--------------------|
+| **Variable** | msg_type    | err_msg            |
+| **Type**     | uint8_t     | char array (uint8_t) |
+| **Min Value**| 5           | char[1]            |
+| **Max Value**| 5           | char[57] (null-terminated) |
+| **Example**  | 5           | "sensor 1 read error" |
 
-
-### Handling a Message Sent to the Wrong System or Unrecognized Data
-
-1. **0x41 0x5A** - Start bytes
-2. ***0x04** - Motor Controller is the sender
-3. **0x02** - ESP32 (HMI) is the recipient
-4. **0x99** - Unknown message type (Invalid Command)
-5. **AA BB CC DD EE** - Random unknown data
-6. **0x59 | 0x42** - Stop bytes
+- The HMI might display **"sensor 1 read error"** on a local screen or beep to alert the user.
 
 
-### Invalid Character Received & Error Handling
 
----
-1. **0x41 0x5A** → Start Byte
-2. **0x02** → ESP32
-3. **0x03** → Weather Sensor
-4. **0x05** → "CORRUPTED MESSAGE: RESEND"
-5. **0x59 0x42** → End Byte
----
-
-1. 0x41 0x3F → First start byte is correct (0x41), but second start byte is incorrect (0x3F instead of 0x5A)
-2. The ESP32 detects corruption and ignores the message.
-
-#### What happens?
-
-1. The ESP32 sets CTS (Clear-To-Send) HIGH to request retransmission from the sender.
-2. It does not process or display the corrupted data.
-
-## Revamped Message Types
-
-| Byte(s) | Name / Field   | Type       | Description                                                                 |
-|---------|----------------|------------|-----------------------------------------------------------------------------|
-| 1       | Message Type   | `uint8`    | Identifies the kind of message being sent (e.g., 0x01 = sensor data).      |
-| 2–3     | Prefix         | 2 × `uint8`| Constant start-of-frame bytes (e.g., 0x41, 0x5A).                           |
-| 4       | SenderID       | `uint8`    | ID of the node transmitting this message (e.g., 0x02 = HMI, 0x04 = Motor). |
-| 5       | DestID         | `uint8`    | ID of the intended recipient (0xFF could represent broadcast).             |
-| 6–63    | Data / Payload | up to 58 bytes | Content depends on Message Type. Could store sensor readings, commands, etc. |
-| 64      | Suffix         | `uint8`    | End-of-frame marker (e.g., 0x42), or extended to 2 bytes if desired (0x59, 0x42). |
