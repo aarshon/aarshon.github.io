@@ -63,7 +63,13 @@ If stop bytes are missing, a timeout triggers data recovery.
 1. The ESP32 sets CTS (Clear-To-Send) HIGH to request retransmission from the sender.
 2. It does not process or display the corrupted data.
 
+## Revamped Message Types
 
-
-
-
+| Byte(s) | Name / Field   | Type       | Description                                                                 |
+|---------|----------------|------------|-----------------------------------------------------------------------------|
+| 1       | Message Type   | `uint8`    | Identifies the kind of message being sent (e.g., 0x01 = sensor data).      |
+| 2–3     | Prefix         | 2 × `uint8`| Constant start-of-frame bytes (e.g., 0x41, 0x5A).                           |
+| 4       | SenderID       | `uint8`    | ID of the node transmitting this message (e.g., 0x02 = HMI, 0x04 = Motor). |
+| 5       | DestID         | `uint8`    | ID of the intended recipient (0xFF could represent broadcast).             |
+| 6–63    | Data / Payload | up to 58 bytes | Content depends on Message Type. Could store sensor readings, commands, etc. |
+| 64      | Suffix         | `uint8`    | End-of-frame marker (e.g., 0x42), or extended to 2 bytes if desired (0x59, 0x42). |
