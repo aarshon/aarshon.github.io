@@ -634,6 +634,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#revamped-message-types" class="md-nav__link">
+    Revamped Message Types
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -732,6 +739,13 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#revamped-message-types" class="md-nav__link">
+    Revamped Message Types
+  </a>
   
 </li>
       
@@ -899,6 +913,55 @@ If stop bytes are missing, a timeout triggers data recovery.</p>
 <li>The ESP32 sets CTS (Clear-To-Send) HIGH to request retransmission from the sender.</li>
 <li>It does not process or display the corrupted data.</li>
 </ol>
+<h2 id="revamped-message-types">Revamped Message Types</h2>
+<table>
+<thead>
+<tr>
+<th>Byte(s)</th>
+<th>Name / Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Message Type</td>
+<td><code>uint8</code></td>
+<td>Identifies the kind of message being sent (e.g., 0x01 = sensor data).</td>
+</tr>
+<tr>
+<td>2–3</td>
+<td>Prefix</td>
+<td>2 × <code>uint8</code></td>
+<td>Constant start-of-frame bytes (e.g., 0x41, 0x5A).</td>
+</tr>
+<tr>
+<td>4</td>
+<td>SenderID</td>
+<td><code>uint8</code></td>
+<td>ID of the node transmitting this message (e.g., 0x02 = HMI, 0x04 = Motor).</td>
+</tr>
+<tr>
+<td>5</td>
+<td>DestID</td>
+<td><code>uint8</code></td>
+<td>ID of the intended recipient (0xFF could represent broadcast).</td>
+</tr>
+<tr>
+<td>6–63</td>
+<td>Data / Payload</td>
+<td>up to 58 bytes</td>
+<td>Content depends on Message Type. Could store sensor readings, commands, etc.</td>
+</tr>
+<tr>
+<td>64</td>
+<td>Suffix</td>
+<td><code>uint8</code></td>
+<td>End-of-frame marker (e.g., 0x42), or extended to 2 bytes if desired (0x59, 0x42).</td>
+</tr>
+</tbody>
+</table>
 
 
 
