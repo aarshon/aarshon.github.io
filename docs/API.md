@@ -67,10 +67,11 @@ The HMI Subsystem API enables seamless UART-based communication with other subsy
 
 ### Team Send Addresses:
 
-Aarshon HMI : 0x07
-Ian Sensor: 0x12
-Alex Motor: 0x69
-KD MQTT: 0x11
+Aarshon HMI : 0x07 
+Ian Sensor: 0x12 [API DATASHEET](https://tortoise6323.github.io/Tortoise6323/api/)
+Alex Motor: 0x69 [API DATASHEET](https://alex-co04.github.io/Alex_Comeaux.io/API/)
+KD MQTT: 0x11 [API DATASHEET](https://kdashora.github.io/kushagrad.github.io/API/)
+
 
 
 
