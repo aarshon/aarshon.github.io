@@ -65,5 +65,14 @@ The HMI Subsystem API enables seamless UART-based communication with other subsy
 
 - The HMI might display **"sensor 1 read error"** on a local screen or beep to alert the user.
 
+### Team Send Addresses:
+
+Aarshon HMI : 0x07
+Ian Sensor: 0x12
+Alex Motor: 0x69
+KD MQTT: 0x11
+
+
+
 
 
