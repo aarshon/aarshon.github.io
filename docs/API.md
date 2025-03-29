@@ -2,6 +2,20 @@
 
 The HMI Subsystem API enables seamless UART-based communication with other subsystems using a structured daisy-chain protocol. This ensures reliable data transmission between the ESP32-WROOM and other modules while preventing conflicts or message loss. The message structure follows a 64-byte format with defined prefixes, suffixes, sender/receiver IDs, and data payloads.
 
+## Team Member IDs
+
+Name    | Subsystem | Address
+--------|-----------|--------
+Aarshon | HMI       | `0x61`
+Alex    | Motor     | `0x63`
+Ian     | Sensor    | `0x69`
+KD      | Websocket | `0x6B`
+
+Ian Sensor:  [API DATASHEET](https://tortoise6323.github.io/Tortoise6323/api/)  
+Alex Motor:  [API DATASHEET](https://alex-co04.github.io/Alex_Comeaux.io/API/)  
+KD MQTT:  [API DATASHEET](https://kdashora.github.io/kushagrad.github.io/API/)    
+
+
 ## UART Message Structure
 
 -----
@@ -67,10 +81,7 @@ The HMI Subsystem API enables seamless UART-based communication with other subsy
 
 ### Team Send Addresses:
 
-Aarshon HMI : 0x07 
-Ian Sensor: 0x12 [API DATASHEET](https://tortoise6323.github.io/Tortoise6323/api/)
-Alex Motor: 0x69 [API DATASHEET](https://alex-co04.github.io/Alex_Comeaux.io/API/)
-KD MQTT: 0x11 [API DATASHEET](https://kdashora.github.io/kushagrad.github.io/API/)
+Aarshon HMI :  
 
 
 
