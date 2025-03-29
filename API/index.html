@@ -568,6 +568,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#team-member-ids" class="md-nav__link">
+    Team Member IDs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#uart-message-structure" class="md-nav__link">
     UART Message Structure
   </a>
@@ -643,6 +650,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#team-member-ids" class="md-nav__link">
+    Team Member IDs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#uart-message-structure" class="md-nav__link">
     UART Message Structure
   </a>
@@ -708,6 +722,41 @@
 
 <h1 id="api-application-programming-interface">API Application Programming Interface</h1>
 <p>The HMI Subsystem API enables seamless UART-based communication with other subsystems using a structured daisy-chain protocol. This ensures reliable data transmission between the ESP32-WROOM and other modules while preventing conflicts or message loss. The message structure follows a 64-byte format with defined prefixes, suffixes, sender/receiver IDs, and data payloads.</p>
+<h2 id="team-member-ids">Team Member IDs</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Subsystem</th>
+<th>Address</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Aarshon</td>
+<td>HMI</td>
+<td><code>0x61</code></td>
+</tr>
+<tr>
+<td>Alex</td>
+<td>Motor</td>
+<td><code>0x63</code></td>
+</tr>
+<tr>
+<td>Ian</td>
+<td>Sensor</td>
+<td><code>0x69</code></td>
+</tr>
+<tr>
+<td>KD</td>
+<td>Websocket</td>
+<td><code>0x6B</code></td>
+</tr>
+</tbody>
+</table>
+<p>Ian Sensor:  <a href="https://tortoise6323.github.io/Tortoise6323/api/">API DATASHEET</a><br />
+Alex Motor:  <a href="https://alex-co04.github.io/Alex_Comeaux.io/API/">API DATASHEET</a><br />
+KD MQTT:  <a href="https://kdashora.github.io/kushagrad.github.io/API/">API DATASHEET</a>    </p>
 <h2 id="uart-message-structure">UART Message Structure</h2>
 <hr />
 <table>
@@ -904,10 +953,7 @@
 <li>The HMI might display <strong>"sensor 1 read error"</strong> on a local screen or beep to alert the user.</li>
 </ul>
 <h3 id="team-send-addresses">Team Send Addresses:</h3>
-<p>Aarshon HMI : 0x07 
-Ian Sensor: 0x12 <a href="https://tortoise6323.github.io/Tortoise6323/api/">API DATASHEET</a>
-Alex Motor: 0x69 <a href="https://alex-co04.github.io/Alex_Comeaux.io/API/">API DATASHEET</a>
-KD MQTT: 0x11 <a href="https://kdashora.github.io/kushagrad.github.io/API/">API DATASHEET</a></p>
+<p>Aarshon HMI :  </p>
 
 
 
