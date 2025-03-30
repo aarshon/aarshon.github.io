@@ -969,6 +969,7 @@ KD MQTT:  <a href="https://kdashora.github.io/kushagrad.github.io/API/">API DATA
 </tr>
 </tbody>
 </table>
+<p><strong>Description:</strong> This message is sent from the HMI ('a') to other subsystems like Alex ('c'), Ian ('i'), or KD ('k') to trigger a specific action. The command_code defines the type of command (e.g., up, down, setpoint), and command_value provides any numeric parameter associated with the command.</p>
 <ul>
 <li>
 <h5 id="display-update-request">Display Update Request:</h5>
@@ -1004,6 +1005,7 @@ KD MQTT:  <a href="https://kdashora.github.io/kushagrad.github.io/API/">API DATA
 </tr>
 </tbody>
 </table>
+<p><strong>Description:</strong> Sent by the HMI to itself ('a'), this message requests a string be shown on the display. It can be used to confirm a command, show sensor status, or provide user feedback.</p>
 <h3 id="b-message-the-hmi-receives">B. Message the HMI Receives:</h3>
 <ul>
 <li>
@@ -1049,6 +1051,7 @@ KD MQTT:  <a href="https://kdashora.github.io/kushagrad.github.io/API/">API DATA
 </tr>
 </tbody>
 </table>
+<p><strong>Description:</strong> Sent from Ian’s sensor subsystem ('i') or as a broadcast ('X'), this message contains a sensor number and a corresponding value. The HMI reads this data and may display it or log it.</p>
 <ul>
 <li>
 <h5 id="subsystem-error-code">Subsystem Error Code:</h5>
@@ -1085,6 +1088,7 @@ KD MQTT:  <a href="https://kdashora.github.io/kushagrad.github.io/API/">API DATA
 </tr>
 </tbody>
 </table>
+<p><strong>Description:</strong> Used by any subsystem to indicate a known error condition via a numeric code. The HMI will display or log the error based on the err_code received.</p>
 <ul>
 <li>
 <h5 id="subsystem-error-message">Subsystem Error Message:</h5>
@@ -1121,6 +1125,7 @@ KD MQTT:  <a href="https://kdashora.github.io/kushagrad.github.io/API/">API DATA
 </tr>
 </tbody>
 </table>
+<p><strong>Description:</strong> This message communicates a descriptive error string (up to 57 characters). It provides a human-readable reason for system faults (e.g., “sensor 1 read error”) that the HMI can show or log.</p>
 <h2 id="frame-structure-summary">Frame Structure Summary:</h2>
 <table>
 <thead>
