@@ -31,6 +31,8 @@ Byte(s)  | Variable  | Data Type | Min    |  Max | Example      |
 2   | command_code       | `uint8_t`  |  `1` | `255`   | `1=UP` |
 3-4 | command_value      | `uint16_t` |  `0` | `65535` | `100`  |
 
+**Description:** This message is sent from the HMI ('a') to other subsystems like Alex ('c'), Ian ('i'), or KD ('k') to trigger a specific action. The command_code defines the type of command (e.g., up, down, setpoint), and command_value provides any numeric parameter associated with the command.
+
 - ##### Display Update Request:
 **(Msg_type = '3') to: Self (Aarshon: 'a')**
 
@@ -39,6 +41,7 @@ Byte(s)  | Variable  | Data Type | Min    |  Max | Example      |
 1        | msg_type           | `char`     |  `3` | `3`     | `3`    | 
 2-58     | display_msg       | `char[57]`  |  `1` | `57`   | `hello user` |
 
+**Description:** Sent by the HMI to itself ('a'), this message requests a string be shown on the display. It can be used to confirm a command, show sensor status, or provide user feedback.
 
 ### B. Message the HMI Receives:
 
@@ -52,6 +55,8 @@ Byte(s)  | Variable  | Data Type | Min    |  Max | Example         |
 2   | sensor_num      | `uint8_t`  |  `1` | `4`   | `3 = Humidity` |
 3-4 | sensor_val      | `uint16_t` |  `0` | `1300` | `45`          |
 
+**Description:** Sent from Ian’s sensor subsystem ('i') or as a broadcast ('X'), this message contains a sensor number and a corresponding value. The HMI reads this data and may display it or log it.
+
 - ##### Subsystem Error Code:
 
 **(Msg_Type = '4'), From: Alex ('c'), Ian ('i'), KD ('k) or Broadcast ('X')**
@@ -61,6 +66,8 @@ Byte(s)  | Variable  | Data Type | Min    |  Max | Example                |
 1        | msg_type           | `char`     |  `4`| `4`   | `4`            | 
 2        | display_msg        | `uint8_t`  |  `0` | `5`  | `1 = Overload` |
 
+**Description:** Used by any subsystem to indicate a known error condition via a numeric code. The HMI will display or log the error based on the err_code received.
+
 - ##### Subsystem Error Message:
 
 **(Msg_Type = '5'), From: Alex ('c'), Ian ('i'), KD ('k) or Broadcast ('X')**
@@ -69,6 +76,9 @@ Byte(s)  | Variable  | Data Type | Min    |  Max | Example                |
 -------- |-----------|--------   |--------| ---- | ------                 | 
 1        | msg_type  | `char`     |  `5`| `5`   | `5`            | 
 2-58     | err-msg  | `char[57]`    | `1`   | `57`   | `Sensor 1 Read Error` |
+
+**Description:** This message communicates a descriptive error string (up to 57 characters). It provides a human-readable reason for system faults (e.g., “sensor 1 read error”) that the HMI can show or log.
+
 
 ## Frame Structure Summary:
 
@@ -85,6 +95,8 @@ Byte(s)  | Variable  | Data Type | Min    |  Max | Example                |
 
 
  # BELOW THIS IS THE OLD ONE, ONLY REFERENCE I WILL DELETE
+
+ 
 ## UART Message Structure
 
 -----
