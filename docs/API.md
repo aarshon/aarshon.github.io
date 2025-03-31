@@ -94,7 +94,7 @@ Byte(s)  | Variable  | Data Type | Min    |  Max | Example                |
  [n+2]      | End Byte 2                         |      'B'      | 
 
 
- # BELOW THIS IS THE OLD ONE, ONLY REFERENCE I WILL DELETE
+# BELOW THIS IS THE OLD ONE, ONLY REFERENCE I WILL DELETE
 
  
 ## UART Message Structure
