@@ -18,6 +18,8 @@
         <link rel="prev" href="../power-distribution/">
       
       
+        <link rel="next" href="../version-improvements/">
+      
       
       <link rel="icon" href="../static/logo.png">
       <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.4.0">
@@ -327,6 +329,23 @@
     
   
   API
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../version-improvements/" class="md-tabs__link">
+        
+  
+    
+  
+  Version 2.0
 
       </a>
     </li>
@@ -659,6 +678,25 @@
   
 </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../version-improvements/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Version 2.0
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -1096,204 +1134,6 @@ KD MQTT:  <a href="https://kdashora.github.io/kushagrad.github.io/API/">API DATA
 </tr>
 </tbody>
 </table>
-<h1 id="below-this-is-the-old-one-only-reference-i-will-delete">BELOW THIS IS THE OLD ONE, ONLY REFERENCE I WILL DELETE</h1>
-<h2 id="uart-message-structure">UART Message Structure</h2>
-<hr />
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Byte 1</th>
-<th>Byte 2</th>
-<th>Byte 3–4</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Variable</strong></td>
-<td>msg_type</td>
-<td>command_code</td>
-<td>command_value</td>
-</tr>
-<tr>
-<td><strong>Type</strong></td>
-<td>uint8_t</td>
-<td>uint8_t</td>
-<td>uint16_t</td>
-</tr>
-<tr>
-<td><strong>Min Value</strong></td>
-<td>2</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td><strong>Max Value</strong></td>
-<td>2</td>
-<td>255</td>
-<td>65535</td>
-</tr>
-<tr>
-<td><strong>Example</strong></td>
-<td>2</td>
-<td>1</td>
-<td>100</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><strong>msg_type = 2</strong> (example) means "User Command" from the HMI.</li>
-<li><strong>command_code</strong> could represent which user action was triggered (e.g., 1 = up button, 2 = down button, 10 = new setpoint, etc.).</li>
-<li><strong>command_value</strong> is the numeric parameter (e.g., 100 = setpoint = 100, or 45 = brightness, etc.).</li>
-</ul>
-<hr />
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Byte 1</th>
-<th>Bytes 2–58</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Variable</strong></td>
-<td>msg_type</td>
-<td>display_msg</td>
-</tr>
-<tr>
-<td><strong>Type</strong></td>
-<td>uint8_t</td>
-<td>char array (uint8_t)</td>
-</tr>
-<tr>
-<td><strong>Min Value</strong></td>
-<td>3</td>
-<td>char[1]</td>
-</tr>
-<tr>
-<td><strong>Max Value</strong></td>
-<td>3</td>
-<td>char[57] (null-terminated)</td>
-</tr>
-<tr>
-<td><strong>Example</strong></td>
-<td>3</td>
-<td>"HELLO USER"</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><strong>msg_type = 3</strong> means a "Display Update Request."</li>
-<li><strong>display_msg</strong> is a character array (up to 57 bytes). Could be zero-terminated if needed.</li>
-</ul>
-<hr />
-<h2 id="sensor-broadcast-data">Sensor Broadcast Data</h2>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Byte 1</th>
-<th>Byte 2</th>
-<th>Bytes 3–4</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Variable</strong></td>
-<td>msg_type</td>
-<td>sensor_num</td>
-<td>sensor_val</td>
-</tr>
-<tr>
-<td><strong>Type</strong></td>
-<td>uint8_t</td>
-<td>uint8_t</td>
-<td>uint16_t</td>
-</tr>
-<tr>
-<td><strong>Example</strong></td>
-<td>1</td>
-<td>3 (humidity)</td>
-<td>45</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>The HMI reads <strong>sensor_num</strong> and <strong>sensor_val</strong> from the incoming packet, then updates the local display or logs the data.</li>
-</ul>
-<h2 id="subsystem-error-code_1">Subsystem error code</h2>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Byte 1</th>
-<th>Byte 2</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Variable</strong></td>
-<td>msg_type</td>
-<td>err_code</td>
-</tr>
-<tr>
-<td><strong>Type</strong></td>
-<td>uint8_t</td>
-<td>uint8_t</td>
-</tr>
-<tr>
-<td><strong>Example</strong></td>
-<td>4</td>
-<td>1</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>The HMI displays or records an appropriate message (e.g., "Error Code 1: Overload").</li>
-</ul>
-<h2 id="subsystem-error-message_1">Subsystem error message</h2>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Byte 1</th>
-<th>Bytes 2–58</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Variable</strong></td>
-<td>msg_type</td>
-<td>err_msg</td>
-</tr>
-<tr>
-<td><strong>Type</strong></td>
-<td>uint8_t</td>
-<td>char array (uint8_t)</td>
-</tr>
-<tr>
-<td><strong>Min Value</strong></td>
-<td>5</td>
-<td>char[1]</td>
-</tr>
-<tr>
-<td><strong>Max Value</strong></td>
-<td>5</td>
-<td>char[57] (null-terminated)</td>
-</tr>
-<tr>
-<td><strong>Example</strong></td>
-<td>5</td>
-<td>"sensor 1 read error"</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>The HMI might display <strong>"sensor 1 read error"</strong> on a local screen or beep to alert the user.</li>
-</ul>
-<h3 id="team-send-addresses">Team Send Addresses:</h3>
-<p>Aarshon HMI :  </p>
 
 
 
@@ -1336,6 +1176,22 @@ KD MQTT:  <a href="https://kdashora.github.io/kushagrad.github.io/API/">API DATA
             </div>
           </a>
         
+        
+          
+          <a href="../version-improvements/" class="md-footer__link md-footer__link--next" aria-label="Next: Version 2.0" rel="next">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Version 2.0
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
         
       </nav>
     

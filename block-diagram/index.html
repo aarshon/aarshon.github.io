@@ -335,6 +335,23 @@
   
 
       
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../version-improvements/" class="md-tabs__link">
+        
+  
+    
+  
+  Version 2.0
+
+      </a>
+    </li>
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -463,6 +480,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#decision-making-process" class="md-nav__link">
+    Decision Making Process:
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#block-diagram-preview" class="md-nav__link">
     📷 Block Diagram Preview
   </a>
@@ -472,6 +496,13 @@
         <li class="md-nav__item">
   <a href="#download-the-block-diagram" class="md-nav__link">
     📁 Download the Block Diagram
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    Conclusion
   </a>
   
 </li>
@@ -598,6 +629,25 @@
   
 
     
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../version-improvements/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Version 2.0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -632,6 +682,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#decision-making-process" class="md-nav__link">
+    Decision Making Process:
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#block-diagram-preview" class="md-nav__link">
     📷 Block Diagram Preview
   </a>
@@ -641,6 +698,13 @@
         <li class="md-nav__item">
   <a href="#download-the-block-diagram" class="md-nav__link">
     📁 Download the Block Diagram
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    Conclusion
   </a>
   
 </li>
@@ -675,10 +739,19 @@
 <strong>Team Members:</strong> Alex Comeaux, Ian Anderson &amp; Kushagara Dashora  </p>
 <h2 id="overview">📌 Overview</h2>
 <p>This page presents the block diagram for the HMI subsystem in our embedded system project.</p>
+<h2 id="decision-making-process">Decision Making Process:</h2>
+<p><strong>Single‑board “Human‑Machine‑Interface” node:</strong> It must supply all local user I/O for the larger daisy‑chain system.  </p>
+<p><strong>Hot‑plug ribbon‑cable bus:</strong> Each team board has to pass power plus a 9600‑baud UART down the chain and leave four spare lines for team‑specific use (Project Protocol spec).  </p>
+<p><strong>Human‑scale UI:</strong> Rapid tactile entry and glanceable feedback, powered from the same 3.3V rail.
+• 4 × 4 membrane keypad: inexpensive, sealed, plug‑in.
+• 128 × 64 monochrome OLED: 40 mA max, I²C already in ESP32 ROM drivers.</p>
 <h2 id="block-diagram-preview">📷 Block Diagram Preview</h2>
-<p><a class="glightbox" href="../assets/images/314-aarshon-block.drawio.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Block Diagram" src="../assets/images/314-aarshon-block.drawio.png" /></a></p>
+<p><a class="glightbox" href="../assets/images/314-aarshon-block.drawio1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Block Diagram" src="../assets/images/314-aarshon-block.drawio1.png" /></a></p>
 <h2 id="download-the-block-diagram">📁 Download the Block Diagram</h2>
-<p><a href="../assets/documents/314-aarshon-block.drawio.pdf">Download Block Diagram PDF</a></p>
+<p><a href="./assets/documents/314-aarshon-block.drawio1.png">Download Block Diagram</a></p>
+<h2 id="conclusion">Conclusion</h2>
+<p>The block diagram is component‑centric so reviewers can trace every electrical relationship, yet bus‑minimal so the firmware stays simple.
+By rooting the keypad matrix and OLED locally, exposing a single I²C branch, and treating the daisy‑chain purely as a UART repeater plus power feed, the board meets every functional, electrical and integration requirement of the team specification</p>
 
 
 
