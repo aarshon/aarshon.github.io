@@ -1,17 +1,45 @@
 
-# HMI Subsystem for STEM-Based Weather Station Report: Bill of Materials & Component Selection  
+# HMI Subsystem for STEM-Based Weather Station Report: Bill of Materials  
 
-This HMI subsystem is designed to provide a robust, low-power, and user-friendly interface for a STEM-based weather station, featuring a PIC18F47Q10 microcontroller, an I²C character LCD, a 4×4 membrane keypad, and a high-efficiency switching regulator. By consolidating essential functionalities—data display, user input, and modular expansion—this solution offers a compact yet scalable platform suitable for educational and real-world applications.
-
-#### [ Download the Excel File](./assets/documents/EGR314_BOM_Aarshon_IndividualSub.xlsx)
-An Excel file containing the full Bill of Materials (BOM) for this HMI subsystem is available for direct download. It details component part numbers, quantities, and brief descriptions to assist in procurement and assembly. The excel file is also converted into a csv file and embedded below: 
->[Download Here](./assets/documents/EGR314_BOM_Aarshon_IndividualSub.xlsx)
+This HMI subsystem is designed to provide a robust, low-power, and user-friendly interface for a STEM-based weather station, featuring a ESP32-S3-WROOM microcontroller, an I²C character OLED , a 4×4 membrane keypad, and a high-efficiency switching regulator. By consolidating essential functionalities—data display, user input, and modular expansion—this solution offers a compact yet scalable platform suitable for educational and real-world applications.
 
 ### Navigate:
 >- [Bill of Materials](#Bill-of-Materials)
 >- [Rationale (Components)](#Rationale)
 >- [Conclusion](#Conclusion)
->- [Download BOM (.xlsx)](./assets/documents/EGR314_BOM_Aarshon_IndividualSub.xlsx)
+>- [Download BOM (.xlsx)](./assets/documents/EGR314_BOM_AARSHON_HMI.xlsx)
+
+#### [ Download the Excel File](./assets/documents/EGR314_BOM_AARSHON_HMI.xlsx)
+An Excel file containing the full Bill of Materials (BOM) for this HMI subsystem is available for direct download. It details component part numbers, quantities, and brief descriptions to assist in procurement and assembly. The excel file is also converted into a csv file and embedded below: 
+>[Download Here](./assets/documents/EGR314_BOM_AARSHON_HMI.xlsx)
+
+## Functional Path‑by‑Path
+
+##### Power‑in & Protection
+12V barrel jack → resettable fuse (1 .5 A) → AP63203WU‑7 buck → 3 .3 V rail (±2 %)  
+
+**Why it matters:** the weather‑station kiosk must survive a student plugging in the wrong wall wart or shorting the keypad ribbon. The polyfuse trips at ≈ 2 A within 500 ms; the buck’s hiccup‑mode current limit keeps dissipation < 0.6 W during the event. 
+
+##### ESP32 Core
+Xtensa dual‑core MCU @ 240 MHz, on‑board 40 MHz crystal. The ESP32 is oversized for a simple menu, but it fulfils two latent needs: Wi‑Fi/MQTT expansion (remote weather upload) and  OTA updates. Its domain powers down to 25 µA when the booth closes; wake‑up sources (keypad row pins) are wired for level interrupts so a child’s press instantly revives the display.
+
+##### Sensor Data Reception (UART Daisy‑Chain)
+
+RX pin (GPIO 16) only, because HMI is terminal node; addressed frames AZ…YB
+A 47 Ω series resistor gives a margin—real‑world protection when multiple PCBs dangle off clip leads. Firmware rejects any frame not addressed to 0x61 or broadcast, prints it to the teacher’s console for assessment, then parses the payload table you finalised (SUB_TEMP, SUB_HUM …).
+Outcome for users: numbers on screen always match the upstream sensor PCB; garbled data is silently dropped, keeping the demo frustration‑free for children.
+
+##### User Input (4 × 4 Keypad)
+
+Columns (outputs) and rows (inputs) are chosen from non‑strapping GPIOs so the ESP32 still boots after a row is pressed at power‑up. Internal pull‑ups remove eight discretes; a ground‑guard moat and keep‑out under the ribbon cable lower capacitive coupling so the scan loop can run at 1 kHz without ghosting—ensuring every rapid keypress from the kids are registered.
+
+#### Visual Output (SSD1306 OLED, I²C)
+
+The 0.96″ OLED runs at 3 .3 V, so level‑translation is unnecessary—fewer parts. A 2.2 kΩ pulls let the bus stretch‑clock, an SSD1306 quirk. The display buffer lives in ESP32 SRAM; The ESP32 core frees the CPU to keep parsing UART frames even during full‑screen updates.
+
+####  Motor Control Relay (to Alex’s actuator node)
+
+The keypad’s * and # send ±5 ° commands down‑chain (MSG_MOTOR_SET).
 
 ## Bill of Materials:
 
@@ -35,13 +63,6 @@ An Excel file containing the full Bill of Materials (BOM) for this HMI subsystem
 |AP63203WU-7                |Buck Switching Regulator IC Positive Fixed 3.3V 1 Output 2A SOT-23-6 Thin, TSOT-23-6                                          |U2           |FP-TSOT26-MFG                  |CMP-00004-1     |4       | $1.38             | $5.52    |Diodes Incorporated           |AP63203WU-7DICT-ND         |[Digikey - Diodes AP63203WU-7](https://www.digikey.com/en/products/detail/diodes-incorporated/AP63203WU-7/9858426?gclsrc=aw.ds&&utm_adgroup=Integrated%20Circuits&utm_source=google&utm_medium=cpc&utm_campaign=Dynamic%20Search_EN_Product&utm_term=&utm_content=Integrated%20Circuits&utm_id=go_cmp-120565755_adg-9159612915_ad-665604606686_dsa-112117096155_dev-c_ext-_prd-_sig-Cj0KCQiA2oW-BhC2ARIsADSIAWpfC8-mV3-DR11xc-mmQ9y9z0EaznMHE-3itlxu-0ZY9sqiQaUJfKkaAgi0EALw_wcB&gad_source=1&gclid=Cj0KCQiA2oW-BhC2ARIsADSIAWpfC8-mV3-DR11xc-mmQ9y9z0EaznMHE-3itlxu-0ZY9sqiQaUJfKkaAgi0EALw_wcB&gclsrc=aw.ds) |[Diodes Datasheet - AP63203](https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf)                    |
 |PIC18F47Q10-I/PT           |RISC Microcontroller, 8-Bit, FLASH, PIC18 CPU, 64MHz, CMOS, PQFP44                                                            |U1           |FP-C04-076-IPC_A               |CMP-00000-1     |3       | $1.49             | $4.47    |Microchip Technology          |PIC18F47Q10-I/PT-ND        |[Digikey - Microchip PIC18F47Q10](https://www.digikey.com/en/products/detail/microchip-technology/PIC18F47Q10-E-PT/12807473?gclsrc=aw.ds&&utm_adgroup=General&utm_source=google&utm_medium=cpc&utm_campaign=PMax%20Shopping_Product_Zombie%20SKUs&utm_term=&utm_content=General&utm_id=go_cmp-17815035045_adg-_ad-__dev-c_ext-_prd-_sig-Cj0KCQiA2oW-BhC2ARIsADSIAWqHSTlX153BIbPgIk4nsCZw305FMFuS6w-vw66DiBBof89fyF6l5aAaAjCwEALw_wcB&gad_source=1&gclid=Cj0KCQiA2oW-BhC2ARIsADSIAWqHSTlX153BIbPgIk4nsCZw305FMFuS6w-vw66DiBBof89fyF6l5aAaAjCwEALw_wcB&gclsrc=aw.ds) |[Microchip Datasheet - PIC18F47Q10](https://ww1.microchip.com/downloads/en/DeviceDoc/PIC18F27-47Q10-Data-Sheet-40002043E.pdf)                   |
 
-## Rationale
-
-**Microcontroller: PIC18F47Q10-I/PT**
-- Justification: Provides robust 8-bit performance, ample I/O pins, and integrated peripherals (I²C, ADC, timers) suitable for keypad scanning, display control, and future expansions. Surface-mount packaging reduces board footprint.
-
-**LCD Display: EA_DOGM204W-A (I²C)**
-- Justification: A 20×4 character LCD with integrated I²C controller for simplified wiring. It operates at 3.3 V, suits low-power applications, and offers clear character output for weather data and menu navigation.
 
 **Power Line Selector: 90120-0123**
 - Justification: A 3-pin header/jumper to conveniently switch between external 12 V and other potential sources (if needed). Rated to handle current from the 12 V, 15 A adapter without significant loss.

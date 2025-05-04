@@ -1,27 +1,22 @@
 
-# Power Distribution , I2C Allocation & Budget Analysis
+# Power Distribution & Budget Analysis
 
-### Power Input (12 V/15 A source):
-The HMI board draws only a fraction of the 15 A available. The generous adapter rating ensures plenty of headroom – the adapter will run well below its capacity, which is beneficial for thermal and reliability reasons. The main consumers on the HMI board are the PIC microcontroller, the LCD, and the backlight (and any small current from the keypad pull-ups or indicator LEDs). The PIC18F47Q10 at 3.3 V/64 MHz typically draws about ~5–15 mA in active operation (plus any current on its I/O pins, which is minimal for logic signals). The EA DOGM204W-A LCD controller (SSD1803A) is very low-power, drawing approximately 250 µA in full operation (not including backlight)
+To estimate the power requirements of our embedded system, we conducted a detailed analysis of each component's current consumption to ensure that our power supply and protective elements, such as the 1.5A fuse, are appropriately rated.
 
-If the LCD uses a backlight, that can be a larger contributor – for example, a white LED backlight on this display might consume up to 30 mA at 3.3 V (with appropriate resistor for ~2.1 V LED drop). The 4×4 keypad is passive and consumes essentially 0 mA except during key scans; even then, current flows only briefly through the internal pull-ups and a pressed switch (a few hundreds of µA per keypress). Thus, under normal conditions, the total 3.3 V load current is on the order of <50 mA (PIC + LCD logic) without backlight, or ~50–80 mA with backlight on. This translates to a power draw of roughly 0.165–0.26 W from the 3.3 V rail. 
+Starting with the ESP32-S3 WROOM microcontroller, it typically draws approximately 23.88 mA during active operation. In deep sleep mode, the current consumption can drop to around 8.14 µA, depending on configuration and board design.
 
-### Buck Regulator (AP63203) Performance:
-With an output of 3.3 V at (say) 80 mA, the AP63203 will draw about
-24mA from the 24V supply (we're assuming 90% efficiency at light load). This is a very light load for both the regulator and the adapter thus I am not really worried about enocuntering with any issues with the buck regulator as well.
-##
+The 0.96-inch I²C OLED display's current draw is contingent on the number of pixels illuminated. Under typical usage, it consumes about 20 mA.
 
-Overall, the power budget is well within safe limits. The regulator and supply have plenty of overhead. All components operate in their linear range without stressing. The board’s 3.3 V rail is rock solid for the MCU and peripherals, and the 12 V distribution is capable of supplying other modules in the weather station (for example, a rain gauge or wind motor, if connected, up to the adapter’s limit). Thermal imaging of the board at full load (with backlight and a dummy 500 mA load on 3.3 V) showed only the regulator warm (~40 °C) and no hotspots on traces. Thus, from a power perspective, the design is robust and reliable for long-term operation.
+The 4×4 membrane keypad, particularly the mLink variant, has an idle current consumption of approximately 4.5 mA.
 
-# I²C Device Address Table
-
-| **I²C Device** | **7-bit Address** | **Notes** | 
-| --- | --- | --- | 
-| **EA DOGM204W-A LCD (SSD1803A controller)**   | 0x3C or 0x3D   |The device internally responds to write commands at this address for text data and commands.| 
-
-
-****** more to be added here ***
-
-## 4x4 Keypad:
- We know that the keypad is not an I²C device and thus has no I²C address. It uses direct GPIO pins. here we connect the keypad directly to the PIC GPIO, eliminating our need for an address!
+The AP63203WU-7 is a synchronous buck converter capable of delivering up to 2 A of continuous output current. Its quiescent current is notably low, around 22 µA, making it efficient for our application.
  
+- ESP32-S3 WROOM: 23.88 mA
+- OLED Display: 20 mA
+- Keypad: 4.5 mA
+
+Totaling approximately 48.38 mA. To account for potential current spikes and ensure a safety margin, we consider a peak current draw of around 100 mA.
+
+Given that our system is protected by a 1.5A fuse, this provides ample headroom above our estimated peak current, ensuring both safety and reliability. The AP63203WU-7 regulator's capacity to handle up to 2 A further reinforces the adequacy of our power design.
+
+In conclusion, our power budget analysis confirms that the selected components and protective measures are well-suited for the system's operational requirements, providing both efficiency and safety.

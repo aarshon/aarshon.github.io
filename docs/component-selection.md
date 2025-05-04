@@ -8,7 +8,7 @@ For our embedded systems design project, we're developing an interactive weather
 
 ## Criteria
 
-To ensure reliable operation, the HMI system requires a stable power supply, necessitating the integration of a voltage regulator. The PIC18F47Q10 microcontroller, selected for its low power consumption and direct compatibility with 5V peripherals, manages the user inputs and LCD output. The 16x2 I2C LCD is chosen for its low power usage and simple text display, while the 4x4 membrane keypad provides an efficient user interface for navigating through different data modules.  
+To ensure reliable operation, the HMI system requires a stable power supply, necessitating the integration of a voltage regulator. The ESP32-S3-WROOM microcontroller, selected for its low power consumption and direct compatibility with 5V peripherals, manages the user inputs and LCD output. The 16x2 I2C LCD is chosen for its low power usage and simple text display, while the 4x4 membrane keypad provides an efficient user interface for navigating through different data modules.  
 
 
 Additionally, the project incorporates a switching voltage regulator as part of a dedicated power supply lab requirement. This AP63203WU-7 switching regulator is being developed to improve power efficiency, particularly for potential expansion into low-power wireless communication modules. The voltage regulator design process includes selecting appropriate inductors, capacitors, and diodes to ensure stable operation under varying load conditions​.
@@ -16,6 +16,22 @@ Additionally, the project incorporates a switching voltage regulator as part of 
 This systematic component selection ensures the HMI module is power-efficient, durable, and user-friendly, meeting both educational and engineering design constraints.
 
 ------------------------------------------------
+## Decision Making:
+
+When I sketched the HMI section I started with the user experience we promised in our project brief: a palm‑sized panel that K‑12 students can poke, read, and instantly understand. From there I worked backward to the parts that make that feel happen.
+
+**0.96‑inch I²C OLED**. A tiny monochrome OLED is crisp enough for numbers and icons, yet it sips only a few milliamps—important because our weather‑station pods may run from a small solar pack. The I²C interface keeps wiring to two signal lines plus power, which means we can route it cleanly on a single‑layer daughterboard and still have SPI free for future add‑ons.
+
+**4 × 4 membrane keypad**. Instead of a single button or capacitive touch, a 4×4 matrix gives 16 distinct inputs (up/down, menu, preset angles, etc.) while costing less than one dollar and adding essentially zero current draw. The flat, sealed membrane survives science‑fair fingerprints and the occasional spilled juice box, matching our durability goal.
+
+**ESP32‑S3 WROOM**. We chose the S3 variant because it bundles Wi‑Fi, Bluetooth, and enough RAM to run Micropython, which lets teammates tweak display layouts or MQTT topics in minutes. Its plentiful GPIO pins easily cover the keypad matrix, OLED, and a UART link to the upstream sensor node without resorting to GPIO expanders. The on‑chip radio also leaves us a path for a future phone‑app dashboard if the class scope expands.
+
+**AP63203WU‑7** buck regulator. The display and MCU both need a rock‑solid 3.3 V rail. This little 3 A synchronous converter stays > 90 % efficient at the 150–200 mA peaks the ESP32 draws during Wi‑Fi bursts, so we meet the “low‑heat, low‑noise” power budget spec. Its tiny QFN footprint fits under the OLED board, freeing front‑panel real estate, and its 100 % duty‑cycle mode lets us wring the battery down to about 3.4 V before the logic starts to brown‑out.
+
+Together these four parts tick every checkbox in the product requirements: low power, student‑friendly interaction, minimal PCB complexity, and head‑room for future wireless features.
+
+
+----------------------------------------------
 
 ## Responsibilities:
 
@@ -27,6 +43,8 @@ This systematic component selection ensures the HMI module is power-efficient, d
 - Communication: The PIC18F47Q10 microcontroller in my HMI module communicates with other subsystems via I2C (for the LCD) and UART (for receiving sensor data).
   
 ---------------------------
+
+
 ## Components
 
 ## Microcontroller Selection
@@ -164,27 +182,27 @@ The LCD display provides real-time feedback to the user, showing the selected mo
 
 -----------------------------
 
-## Library and Compatibility Research for PIC18F47Q10
+## Library and Compatibility Research for ESP32
 
-- To ensure seamless integration of peripherals, I conducted research on library support, potential compatibility issues, and existing code examples for the PIC18F47Q10. The focus was on the 4x4 matrix keypad, the 16x2 I2C LCD, and voltage regulation to verify that all components could be efficiently interfaced with the microcontroller.
+- To ensure seamless integration of peripherals, I conducted research on library support, potential compatibility issues, and existing code examples for the ESP32. The focus was on the 4x4 matrix keypad, the 16x2 I2C LCD, and voltage regulation to verify that all components could be efficiently interfaced with the microcontroller.
 
 ### Keypad (4x4 Matrix) Compatibility Check
 
-The 4x4 matrix keypad is interfaced using GPIO row-column scanning, where each key press is detected by determining which row and column are connected when a button is pressed. MPLAB XC8 does not include a built-in library for keypad scanning, so a custom row-column scanning function will be implemented. One known issue with matrix keypads is button debounce, which must be handled in firmware to avoid unintended multiple key detections when a button is pressed.
+The 4x4 matrix keypad is interfaced using GPIO row-column scanning, where each key press is detected by determining which row and column are connected when a button is pressed. Micropython does not include a built-in library for keypad scanning, so a custom row-column scanning function will be implemented. One known issue with matrix keypads is button debounce, which must be handled in firmware to avoid unintended multiple key detections when a button is pressed.
 
-To address this, a state-based debounce algorithm will be implemented, and the rows and columns will be scanned using direct GPIO manipulation in MPLAB XC8. This ensures accurate key detection and reliable input processing.
+To address this, a state-based debounce algorithm will be implemented, and the rows and columns will be scanned using direct GPIO manipulation in code. This ensures accurate key detection and reliable input processing.
 
 ### 16x2 LCD (I2C) Compatibility Check
 
-- The selected LCD module communicates using the I2C protocol, which reduces the number of GPIO pins required compared to a parallel-interface LCD. The MPLAB XC8 environment includes support for I2C communication, and the LiquidCrystal_I2C.h library is compatible with PIC18F microcontrollers, simplifying integration. However, some LCD controllers, such as the Hitachi HD44780 and its variants, require specific initialization sequences that may differ between models.
+- The selected LCD module communicates using the I2C protocol, which reduces the number of GPIO pins required compared to a parallel-interface LCD. However, some LCD controllers, such as the Hitachi HD44780 and its variants, require specific initialization sequences that may differ between models.
 
 - To ensure compatibility, the initialization sequence will be tested, and any necessary adjustments will be made within the LiquidCrystal_I2C.h library. This will ensure that the LCD correctly displays menu options and sensor data as intended.
 
 ### Voltage Regulator (AP63203WU)
 
-- The HMI system requires a stable 5V power supply to ensure proper operation of the PIC microcontroller, keypad, and LCD. The AP63203WU was selected as the voltage regulator due to its high efficiency and reduced heat dissipation compared to traditional linear regulators like the AMS1117-5.0. As a synchronous buck converter, it provides up to 95% efficiency, minimizing power loss and heat generation.
+- The HMI system requires a stable 5V power supply to ensure proper operation of the microcontroller, keypad, and LCD. The AP63203WU was selected as the voltage regulator due to its high efficiency and reduced heat dissipation compared to traditional linear regulators like the AMS1117-5.0. As a synchronous buck converter, it provides up to 95% efficiency, minimizing power loss and heat generation.
 
-- Unlike the AMS1117-5.0, which wastes energy as heat, the AP63203WU efficiently steps down higher input voltages (3.8V to 32V) to a stable 5V output, making it suitable for battery-powered and energy-sensitive applications.
+- Unlike the AMS1117-5.0, which wastes energy as heat, the AP63203WU efficiently steps down higher input voltages (3.8V to 32V) to a stable 3.3V output, making it suitable for battery-powered and energy-sensitive applications.
 
 
 ## MCC Pin Configuration
@@ -205,15 +223,25 @@ To address this, a state-based debounce algorithm will be implemented, and the r
 
 ## Pin Allocation Analysis
 
-While setting up the MCC configuration, I made sure that all the peripherals were assigned to available pins without any conflicts. Since UART communication is critical for the HMI to send and receive data, I moved the TX (transmit) to RB7 and RX (receive) to RB6 instead of using the default UART pins. This setup still works perfectly with the PIC18F47Q10 and ensures reliable communication with the other subsystems.
+#### Screen (GPIO 19 = SCL, 18 = SDA)  
 
-For the keypad input, I mapped the GPIOs to RB0-RB7 so the microcontroller can efficiently scan which button is pressed using row-column multiplexing. The I2C interface for the LCD display is set to RC4 (SDA) and RC3 (SCL), which are dedicated I2C pins on the PIC, making communication with the LCD simple and reliable.
+The OLED display talks over I²C. We parked its two wires on pins 18 and 19 because they sit next to each other and don’t mess with the ESP32’s boot pins. Two little 4 k7 resistors pull those lines up to 3.3 V, so the screen always answers when we call address 0x3C. No more mystery time‑outs.
 
-After setting everything up in MCC, I checked the generated initialization code, and everything looked good—no errors, no conflicts. The microcontroller has enough available pins for all required functions, and I also accounted for power management to ensure a stable 5V supply to the PIC, LCD, and keypad.
+#### Keypad (rows 22 / 21 / 23 / 26, columns 15 / 2 / 4 / 5)  
 
-## Conclusion
+The 4×4 membrane keypad works like a mini grid. Four pins drive the rows; four other pins read the columns. The column pins already have built‑in pull‑ups, so a pressed key simply drags one column low and the firmware figures out which button it was. We scan 50 times per second, so key presses feel instant.
 
-The component selection process for the HMI subsystem was guided by several key factors, including compatibility, power efficiency, ease of integration, and reliability. The PIC18F47Q10 microcontroller was chosen due to its low power consumption, built-in I2C support for the LCD, and GPIO capabilities for keypad scanning, making it the most suitable option for this project. The 16x2 I2C LCD was selected for its simple interface, low power requirements, and clear text display, ensuring that users can easily navigate and view real-time weather data.
+#### UART link (RX 16, TX 17)  
+
+Pin 14 listens to everything KD or Ian sends. Pin 27 is wired but unused for now—handy if we ever daisy‑chain another board. Because we’re on UART2, the main USB serial port stays free for debugging.
+
+### Power & reset  
+
+Once we gave the OLED a solid 3.3 V (instead of the shaky 1.7 V we found earlier) the screen popped right up and the I²C bus settled down. The screen’s reset pin is tied high so it always wakes up cleanly.
+
+## Conclusion  
+
+The component selection process for the HMI subsystem was guided by several key factors, including compatibility, power efficiency, ease of integration, and reliability. The ESP32 microcontroller was chosen due to its low power consumption, built-in I2C support for the LCD, and GPIO capabilities for keypad scanning, making it the most suitable option for this project. The 16x2 I2C LCD was selected for its simple interface, low power requirements, and clear text display, ensuring that users can easily navigate and view real-time weather data.
 
 For user input, the 4x4 membrane keypad was chosen due to its compact design, durability, and ease of integration using direct GPIO scanning. To maintain a stable power supply, the AMS1117-5.0 linear voltage regulator was selected to provide a consistent 5V output to the microcontroller, LCD, and keypad, ensuring that all components operate without voltage fluctuations.
 
